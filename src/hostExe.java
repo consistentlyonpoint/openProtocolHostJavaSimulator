@@ -26,7 +26,7 @@ public class hostExe {
                     hClient.stopConnection();
                 } catch (Throwable a) {
                     System.out.println("Closing Window, can't stop connection\n" + a.getMessage());
-                    a.printStackTrace();
+//                    a.printStackTrace();
                 }
                 System.exit(0);
             }
@@ -36,31 +36,27 @@ public class hostExe {
         // ip and port text areas
         JTextArea ipString = new JTextArea();
         JTextArea portString = new JTextArea();
-
-//        ipString.setColumns(75);
-//        ipString.setRows(5);
-//        portString.setColumns(25);
-//        portString.setRows(5);
+        ipString.setColumns(75);
+        ipString.setRows(5);
+        portString.setColumns(25);
+        portString.setRows(5);
         //
         // MID Command text areas
         JTextArea midString = new JTextArea();
         JTextArea midInputString = new JTextArea();
-
-//        midString.setColumns(50);
-//        midString.setRows(5);
-//        midInputString.setColumns(50);
-//        midInputString.setRows(5);
+        midString.setColumns(50);
+        midString.setRows(5);
+        midInputString.setColumns(50);
+        midInputString.setRows(5);
 
         JTextArea serializedMidString = new JTextArea();
-
-//        serializedMidString.setColumns(100);
-//        serializedMidString.setRows(5);
+        serializedMidString.setColumns(100);
+        serializedMidString.setRows(5);
         //
         // dialog box text area
         JTextArea dialogBox = new JTextArea();
-
-//        dialogBox.setColumns(100);
-//        dialogBox.setRows(50);
+        dialogBox.setColumns(100);
+        dialogBox.setRows(50);
         dialogBox.setLineWrap(true);
         //
         // JPanels containers
@@ -117,7 +113,7 @@ public class hostExe {
                     //
                     String jsonTimestamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSxxx"));
                     System.out.println("IO Exception in connection button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
-                    o.printStackTrace();
+//                    o.printStackTrace();
                 }
             }
         });
@@ -167,7 +163,7 @@ public class hostExe {
                     //
                     String jsonTimestamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSxxx"));
                     System.out.println("IO Exception in mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
-                    o.printStackTrace();
+//                    o.printStackTrace();
                 }
             }
         });
@@ -205,7 +201,7 @@ public class hostExe {
                     //
                     String jsonTimestamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSxxx"));
                     System.out.println("IO Exception in serialized mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
-                    o.printStackTrace();
+//                    o.printStackTrace();
                 }
             }
         });
@@ -220,7 +216,7 @@ public class hostExe {
         JScrollPane scrollDialogContainer = new JScrollPane(dialogBox);
 
         pnlDialogContainer.setLayout(new BoxLayout(pnlDialogContainer, BoxLayout.Y_AXIS));
-        pnlDialogContainer.setMinimumSize(new Dimension(100, 50));
+//        pnlDialogContainer.setMinimumSize(new Dimension(100, 50));
         pnlDialogContainer.add("dialog", scrollDialogContainer);
         // pnlDialogContainer.setLayout(new BoxLayout(pnlDialogContainer, BoxLayout.Y_AXIS));
         // pnlDialogContainer.add("dialog", dialogBox);
@@ -237,7 +233,7 @@ public class hostExe {
                     hClient.stopConnection();
                 } catch (Throwable b) {
                     System.out.println("Exit Window, can't stop connection\n" + b.getMessage());
-                    b.printStackTrace();
+//                    b.printStackTrace();
                 }
                 System.exit(0);
             }
@@ -249,7 +245,6 @@ public class hostExe {
         frame.pack();
 
         frame.setVisible(true);
-
     }
     //
     static void appendDialog(JTextArea tArea, String dialog){
