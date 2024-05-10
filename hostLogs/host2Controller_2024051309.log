@@ -1,0 +1,5 @@
+2024-05-13 09:35:25.454 [INFO] Line83: abc
+2024-05-13 09:35:25.759 [INFO] Line83: closing window
+2024-05-13 09:45:16.741 [INFO] Line84: exit button
+2024-05-13 09:45:17.119 [ERROR] Line84: Exit Window, can't stop connection
+null

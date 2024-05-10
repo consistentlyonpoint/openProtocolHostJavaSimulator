@@ -28,6 +28,8 @@ public class hostClient {
             scheduler.scheduleAtFixedRate(() -> {
                 // if controller replies to MID9999, use sendMessage.
                 String autoReplyMessage = sendMessage("00209999001000000000" + "\0");
+                hostLogger.hostLog("startConnection", "host keep alive ", "info");
+
                 // if controller does not reply to MID9999, use sendNoReplyMessage.
 //                sendNoReplyMessage("00209999001000000000" + "\0");
                 System.out.println("MID9999 : " + "00209999001000000000");
@@ -67,20 +69,22 @@ public class hostClient {
     //
     String readFully(InputStreamReader in) throws IOException {
 
-        String returnString = null;
+        // String returnString = null;
+        String returnString;
         int n = 0;
         int maxStr = 9999;
         int[] bS = new int[maxStr];
-        boolean cont = true;
-        while (cont && n < maxStr) {
+        //boolean cont = true;
+        // while (cont && n < maxStr) {
+        while (n < maxStr) {
             int b = in.read();
             if (b == 0) {
-                cont = false;
+                // cont = false;
                 break;
             } else if (b != -1) {
                 bS[n] = b;
             } else {
-                cont = false;
+                // cont = false;
                 break;
             }
             n += 1;
@@ -91,9 +95,9 @@ public class hostClient {
     }
     //
     byte[] msgBytes(String serializedMsg) {
-
-        byte[] bytes = serializedMsg.getBytes(StandardCharsets.US_ASCII);
-        return bytes;
+//        byte[] bytes = serializedMsg.getBytes(StandardCharsets.US_ASCII);
+//        return bytes;
+        return serializedMsg.getBytes(StandardCharsets.US_ASCII);
     }
     //
     void stopConnection() {

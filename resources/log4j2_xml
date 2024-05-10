@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--https://logging.apache.org/log4j/2.x/manual/configuration.html-->
+<Configuration>
+<!--    <Properties>-->
+<!--        <Property name="LOG_PATTERN">-->
+<!--            %d{yyyy-MM-dd HH:mm:ss.SSS} [%p] %t - %m%n-->
+<!--        </Property>-->
+<!--    </Properties>-->
+    <Appenders>
+<!--        <AppenderFile name="RollingName" filename="${ctx:folder}/${ctx:filename}.log">-->
+<!--        <File name="AppendHostLogs" filename="${log.folder}/${log.filename}.log">-->
+<!--        <Routing name="Routing">-->
+<!--            <Routes pattern="$${sys:logFileName}">-->
+<!--            <Route>-->
+<!--    &lt;!&ndash;        <File name="AppendHostLogs"> fileName="${sys:folder}/${sys:logFilename}.log">&ndash;&gt;-->
+<!--    &lt;!&ndash;        <File name="AppendHostLogs" fileName="${log.folder}/${log.filename}.log">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <File name="AppendHostLogs" fileName="hostLogs/${sys:logFileName}.log">&ndash;&gt;-->
+        <File name="File" fileName="hostLogs2/${sys:logFileName}">
+<!--        <File name="AppendHostLogs" fileName="hostLogs/${logFileName}">-->
+<!--                    <File name="AppendHostLogs" fileName="hostLogs/$${logFileName}">-->
+    <!--            <ThresholdFilter level="all"/>-->
+    <!--            <Filter filter="info"/>-->
+            <PatternLayout>
+<!--                <Pattern>${LOG_PATTERN}</Pattern>-->
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] %t - %m%n</Pattern>
+            </PatternLayout>
+    <!--            <Policies>-->
+    <!--                <SizeBasedTriggeringPolicy size="20MB"/>-->
+    <!--            </Policies>-->
+        </File>
+<!--            </Route>-->
+<!--            </Routes>-->
+<!--        </Routing>-->
+<!--        <Console name="Console" target="SYSTEM_OUT">-->
+<!--            <PatternLayout pattern="${LOG_PATTERN}"/>-->
+<!--        </Console>-->
+<!--        <Async name="Async">-->
+<!--            <AppenderRef ref="AppendHostLogs"/>-->
+<!--        </Async>-->
+        <Console name="Console">
+            <PatternLayout pattern="%m%n"/>
+            <ThresholdFilter level="error"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+<!--        <Logger name="hostLogger" level="info" additivity="false">-->
+<!--            <AppenderRef ref="AppendHostLogs"/>-->
+<!--        </Logger>-->
+        <Root level="error">
+<!--            <AppenderRef ref="AppendHostLogs"/>-->
+            <AppenderRef ref="Console" level="debug"/>
+        </Root>
+    </Loggers>
+</Configuration>

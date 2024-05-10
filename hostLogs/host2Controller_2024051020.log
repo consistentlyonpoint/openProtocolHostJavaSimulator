@@ -1,0 +1,13 @@
+2024-05-10 20:20:46.411 [INFO ] AWT-EventQueue-0:79 - exit button
+2024-05-10 20:20:46.442 [ERROR] AWT-EventQueue-0:79 - Exit Window, can't stop connection
+null
+2024-05-10 20:21:51.353 [INFO] AWT-EventQueue-0 - exit button
+2024-05-10 20:21:51.392 [ERROR] AWT-EventQueue-0 - Exit Window, can't stop connection
+null
+2024-05-10 20:22:59.872 [INFO] 79: exit button
+2024-05-10 20:22:59.910 [ERROR] 79: Exit Window, can't stop connection
+null
+2024-05-10 20:23:27.974 [INFO] Line79: exit button
+2024-05-10 20:23:28.006 [ERROR] Line79: Exit Window, can't stop connection
+null
+2024-05-10 20:32:02.791 [INFO] Line79: abc2024-05-10 20:32:02.824 [INFO] Line79: closing window
