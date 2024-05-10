@@ -1,50 +1,68 @@
-import jep.Interpreter;
-import jep.JepConfig;
-import jep.JepException;
-import jep.SubInterpreter;
-import jep.python.MemoryManager;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.Logger.*;
+//import org.apache.log4j.Level;
+
+import java.io.*;
+//import java.nio.file.*;
+//import java.util.*;
+
+//import java.text.SimpleDateFormat;
+//import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class hostLogger {
+    // protected static final Logger logger = LogManager.getLogger();
+    protected static final Logger logger = LogManager.getLogger(hostLogger.class);
+    // protected static final Logger logger2 = Logger.getLogger(JavaClass.class.getName());
+    // protected static final Logger logger2 = Logger.class.getName();
+    // protected static final Logger logger3 = LogManager.getLogger().set
 
-    void jepLogger(String inStr, String inErr) {
-        System.out.println("the inputs were: \n" + inStr + "\n" + inErr);
+    static void hostLog(String inFile, String inLog, String logType) {
+        System.out.println("the inputs were: \n" + inFile + "\n" + inLog);
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+//        String logTimeStamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSxxx").withZone(ZoneId.of("GMT")));
+        String logTimeStamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHH"));
+//        System.out.println("the log file time: \n" + logTimeStamp);
 
-        Interpreter jepInt = null;
-        MemoryManager memMan = null;
+        String logFileName = inFile + "_" + logTimeStamp + ".log";
+//        System.out.println("the logFileName: \n" + logFileName);
+
+        File logFolder = new File(System.getProperty("user.dir") + "/hostLogs" + "/"+inFile);
+        // File logFolder = new File("../hostLogs");
+        if (!logFolder.exists()) {
+            logFolder.mkdir();
+        }
+
+        String joinFolder = "\\";
+        // Path absLogFilePath = Paths.get(logFolder + joinFolder + logFileName);
+        String absLogFilePath = logFolder + joinFolder + logFileName;
+        System.setProperty("logFilePath", absLogFilePath);
         //
         try {
-            // 2 - Instantiate JepConfig.
-            JepConfig jepConfig = new JepConfig().addIncludePaths(".").addSharedModules("pathlib")
-                    .addIncludePaths("py_logger");
-            System.out.println("jep Configured");
-            //What about memory manager?
-            memMan = new MemoryManager();
-            jepInt = new SubInterpreter(jepConfig);
+//            if ("info".equals(logType)) {
+//                logger.info(inLog);
+//            } else if ("debug".equals(logType)) {
+//                logger.debug(inLog);
+//            } else if ("error".equals(logType)) {
+//                logger.error(inLog);
+//            } else if ("trace".equals(logType)) {
+//                logger.trace(inLog);
+//            } else if("warn".equals(logType)) {
+//                logger.warn(inLog);
+//            } else if("fatal".equals(logType)) {
+//                logger.fatal(inLog);
+//            } else {
+//                logger.log(Level.getLevel(logType), inLog);
+//            }
+//            logger.isEnabled(Level.ALL);
+            logger.log(Level.getLevel(logType), inLog);
 
-            jepInt.eval("import jep_log_writer as lg");
-            System.out.println("eval'd the py file");
-
-            jepInt.set("s_str", inStr);
-            jepInt.set("msg", inErr);
-            System.out.println("set the variable");
-
-            jepInt.eval("lg.logger_(s_str, msg)");
-            System.out.println("ran the py");
-
-        } catch (JepException r) {
-            System.out.println("JepException in logging?\n: " + r.getMessage());
-            r.printStackTrace();
-        } finally {
-            System.out.println("finally");
-            if (jepInt != null) {
-                try {
-                    memMan.cleanupWeakReferences();
-                    jepInt.close();
-                } catch (JepException s) {
-                    System.out.println("JepException in jep.close()?\n: " + s.getMessage());
-                    s.printStackTrace();
-                }
-            }
+//            LogManager.shutdown();
+        } catch (Throwable r) {
+            System.out.println("Exception in logging?\n: " + r.getMessage());
         }
     }
 }

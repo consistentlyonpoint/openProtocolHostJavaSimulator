@@ -14,7 +14,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="black.ninia.jep" level="application" />
     <orderEntry type="library" exported="" name="apache.commons.lang3" level="application" />
-    <orderEntry type="library" exported="" name="Python 3.12 (jepLogger) interpreter library" level="application" />
+    <orderEntry type="library" name="Python 3.12 (jepLogger) interpreter library" level="application" />
     <orderEntry type="library" name="Python 3.12 (eyelocal) interpreter library" level="application" />
+    <orderEntry type="library" name="apache.logging.log4j.1.2.api" level="application" />
+    <orderEntry type="library" exported="" name="apache.logging.log4j.api" level="application" />
   </component>
 </module>

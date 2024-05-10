@@ -1,12 +1,12 @@
 import javax.swing.*;
-import java.awt.*;
+//import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.time.ZoneId;
+//import java.io.DataOutputStream;
+//import java.io.IOException;
+//import java.net.ServerSocket;
+//import java.net.Socket;
+//import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,7 +14,8 @@ public class hostExe {
     //
     public static void createDialog() {
         hostClient hClient = new hostClient();
-        hostPyLogger hLogger = new hostPyLogger();
+//        hostPyLogger hLogger = new hostPyLogger();
+//        hostLogger hlogger = new hostLogger();
         openProtocolClientParserMIDClass oPCP = new openProtocolClientParserMIDClass();
         openProtocolClientSerializerMIDClass oPCS = new openProtocolClientSerializerMIDClass();
 
@@ -23,9 +24,11 @@ public class hostExe {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 try {
+                    hostLogger.hostLog("exit", "closing window", "info");
                     hClient.stopConnection();
                 } catch (Throwable a) {
-                    System.out.println("Closing Window, can't stop connection\n" + a.getMessage());
+                    hostLogger.hostLog("exit", a.getMessage(), "error");
+//                    System.out.println("Closing Window, can't stop connection\n" + a.getMessage());
 //                    a.printStackTrace();
                 }
                 System.exit(0);
@@ -87,32 +90,33 @@ public class hostExe {
                     hClient.startConnection(inputIdAddress, inputPortId);
                     //append & log the connection
                     appendDialog(dialogBox, "Connect to:\n" + inputIdAddress + ": " + inputPortId);
-                    hLogger.jepLogger("host2Controller", "host connected to " + inputIdAddress + ": " + inputPortId);
+                    hostLogger.hostLog("host2Controller", "host connected to " + inputIdAddress + ": " + inputPortId, "info");
 
                     //
                     String startMid = "MID0001";
                     //append & log the input
                     appendDialog(dialogBox, "host message: \n" + startMid);
-                    hLogger.jepLogger("host2Controller", "host message: " + startMid);
+                    hostLogger.hostLog("host2Controller", "host message: " + startMid, "info");
 
                     //append & log the input
                     String integratorMsg = oPCS.integratorString(startMid);
                     appendDialog(dialogBox, "host message serialized: \n" + integratorMsg);
-                    hLogger.jepLogger("host2Controller", "host message serialized: " + integratorMsg);
+                    hostLogger.hostLog("host2Controller", "host message serialized: " + integratorMsg, "info");
 
                     String serverResponse = hClient.sendMessage(startMid);
                     appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
-                    hLogger.jepLogger("host2Controller", "controller message serialized: " + serverResponse);
+                    hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
 
                     Object serverResponseParsed = oPCP.parseMessage(serverResponse);
                     appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
-                    hLogger.jepLogger("host2Controller", "controller message parsed: " + serverResponseParsed);
+                    hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
 
                 } catch (Throwable o) {
                     ZonedDateTime zonedDateTime = ZonedDateTime.now();
                     //
                     String jsonTimestamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSxxx"));
-                    System.out.println("IO Exception in connection button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
+//                    System.out.println("IO Exception in connection button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
+                    hostLogger.hostLog("host2Controller", "IO Exception in connection button\n" + o.getMessage() + "\n @ " + jsonTimestamp, "error");
 //                    o.printStackTrace();
                 }
             }
@@ -143,26 +147,27 @@ public class hostExe {
                     String midValues = midInputString.getText();
                     //append & log the input
                     appendDialog(dialogBox, "host message: \n" + midCommand + " " + midValues);
-                    hLogger.jepLogger("host2Controller", "host message: " + midCommand + " " + midValues);
+                    hostLogger.hostLog("host2Controller", "host message: " + midCommand + " " + midValues, "info");
 
                     //append & log the input
                     String integratorMsg = oPCS.integratorString(midCommand + " " + midValues);
                     appendDialog(dialogBox, "host message serialized: \n" + integratorMsg);
-                    hLogger.jepLogger("host2Controller", "host message serialized: " + integratorMsg);
+                    hostLogger.hostLog("host2Controller", "host message serialized: " + integratorMsg, "info");
 
                     String serverResponse = hClient.sendMessage(integratorMsg);
                     appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
-                    hLogger.jepLogger("host2Controller", "controller message serialized: " + serverResponse);
+                    hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
 
                     Object serverResponseParsed = oPCP.parseMessage(serverResponse);
                     appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
-                    hLogger.jepLogger("host2Controller", "controller message parsed: " + serverResponseParsed);
+                    hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
 
                 } catch (Throwable o) {
                     ZonedDateTime zonedDateTime = ZonedDateTime.now();
                     //
                     String jsonTimestamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSxxx"));
-                    System.out.println("IO Exception in mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
+//                    System.out.println("IO Exception in mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
+                    hostLogger.hostLog("host2Controller", "IO Exception in mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp, "error");
 //                    o.printStackTrace();
                 }
             }
@@ -186,21 +191,22 @@ public class hostExe {
                     String serializedMidCommand = serializedMidString.getText();
                     //append & log the input
                     appendDialog(dialogBox, "host message: \n" + serializedMidCommand);
-                    hLogger.jepLogger("host2Controller", "host message: " + serializedMidCommand);
+                    hostLogger.hostLog("host2Controller", "host message: " + serializedMidCommand, "info");
 
                     String serverResponse = hClient.sendMessage(serializedMidCommand);
                     appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
-                    hLogger.jepLogger("host2Controller", "controller message serialized: " + serverResponse);
+                    hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
 
                     Object serverResponseParsed = oPCP.parseMessage(serverResponse);
                     appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
-                    hLogger.jepLogger("host2Controller", "controller message parsed: " + serverResponseParsed);
+                    hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
 
                 } catch (Throwable o) {
                     ZonedDateTime zonedDateTime = ZonedDateTime.now();
                     //
                     String jsonTimestamp = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSxxx"));
-                    System.out.println("IO Exception in serialized mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
+//                    System.out.println("IO Exception in serialized mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp);
+                    hostLogger.hostLog("host2Controller", "IO Exception in serialized mid send button\n" + o.getMessage() + "\n @ " + jsonTimestamp, "error");
 //                    o.printStackTrace();
                 }
             }
@@ -230,9 +236,11 @@ public class hostExe {
         exit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                    hostLogger.hostLog("exit", "exit button", "info");
                     hClient.stopConnection();
                 } catch (Throwable b) {
-                    System.out.println("Exit Window, can't stop connection\n" + b.getMessage());
+//                    System.out.println("Exit Window, can't stop connection\n" + b.getMessage());
+                    hostLogger.hostLog("exit", "Exit Window, can't stop connection\n" + b.getMessage(), "error");
 //                    b.printStackTrace();
                 }
                 System.exit(0);
