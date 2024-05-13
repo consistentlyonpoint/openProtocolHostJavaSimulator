@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -16,7 +17,7 @@ public class hostClient {
     ScheduledExecutorService scheduler;
 
     //
-    void startConnection(String ip, int port) {
+    void startConnection(String ip, int port, JTextArea dbox, int delay, int timePeriod) {
         try {
             clientSocket = new Socket(ip, port);
             clientSocket.setKeepAlive(true);
@@ -28,12 +29,14 @@ public class hostClient {
             scheduler.scheduleAtFixedRate(() -> {
                 // if controller replies to MID9999, use sendMessage.
                 String autoReplyMessage = sendMessage("00209999001000000000" + "\0");
+                //
+                hostExe.appendDialog(dbox, "keep alive: " + "00209999001000000000" + "\0");
                 hostLogger.hostLog("startConnection", "host keep alive ", "info");
 
                 // if controller does not reply to MID9999, use sendNoReplyMessage.
 //                sendNoReplyMessage("00209999001000000000" + "\0");
                 System.out.println("MID9999 : " + "00209999001000000000");
-            }, 75, 65, TimeUnit.SECONDS);
+            }, delay, timePeriod, TimeUnit.SECONDS);
 
         } catch (IOException e) {
             System.out.println("Something went wrong in startConnection Or keepAlive\n" + e.getMessage());
