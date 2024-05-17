@@ -9,9 +9,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class hostExe {
-
     static JTextField ipString;
-//    static JTextArea ipString;
     static JTextField portString;
     static JTextField initTimeout;
     static JTextField timeoutDelay;
@@ -27,155 +25,108 @@ public class hostExe {
     static JTextArea dialogBox;
     //
     static JPanel connectionPanel() {
-//        GridBagConstraints c = new GridBagConstraints();
-//        c.gridx = 150;
-//        c.gridy = 0;
 
         // Connection JPanels
         JPanel pnlCnctMain = new JPanel();
         pnlCnctMain.setMaximumSize(new Dimension(920, 350));
         pnlCnctMain.setMinimumSize(new Dimension(500, 135));
         pnlCnctMain.setLayout(new BoxLayout(pnlCnctMain, BoxLayout.Y_AXIS));
-//        pnlCnctMain.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlCnctMain.setAlignmentX(Component.LEFT_ALIGNMENT);
         pnlCnctMain.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-
         // Connection Header
         JLabel lblManualConnect = new JLabel("Connection");
         lblManualConnect.setFont(new Font("Courier", Font.BOLD, 16));
         lblManualConnect.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblManualConnect.setAlignmentY(Component.TOP_ALIGNMENT);
         pnlCnctMain.add(lblManualConnect);
-
         // Connect Detail
-        // ip and port text areas
         JPanel pnlCnctDtl = new JPanel();
-        pnlCnctDtl.setMaximumSize(new Dimension(920, 35));
-        pnlCnctDtl.setMinimumSize(new Dimension(500, 30));
+        pnlCnctDtl.setMaximumSize(new Dimension(920, 150));
+        pnlCnctDtl.setMinimumSize(new Dimension(500, 80));
         pnlCnctDtl.setLayout(new BoxLayout(pnlCnctDtl, BoxLayout.X_AXIS));
-//        pnlCnctDtl.setLayout(new GridBagLayout());
-        pnlCnctDtl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//        pnlCnctDtl.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+//        pnlCnctDtl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        // labels
+        JPanel pnlCnctLbls = new JPanel();
+        pnlCnctLbls.setMaximumSize(new Dimension(85, 150));
+        pnlCnctLbls.setMinimumSize(new Dimension(55, 80));
+        pnlCnctLbls.setLayout(new BoxLayout(pnlCnctLbls, BoxLayout.Y_AXIS));
+        pnlCnctLbls.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlCnctipLbl = new JPanel();
+        pnlCnctipLbl.setMaximumSize(new Dimension(85, 30));
+        pnlCnctipLbl.setMinimumSize(new Dimension(55, 25));
+        pnlCnctipLbl.setLayout(new BoxLayout(pnlCnctipLbl, BoxLayout.X_AXIS));
         JLabel ipLbl = new JLabel("Host:");
-//        ipLbl.setMaximumSize(new Dimension(75, 30));
-//        ipLbl.setMinimumSize(new Dimension(50, 30));
         ipLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        ipLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
-        pnlCnctDtl.add(ipLbl);
-//        JTextField ipString = new JTextField("127.0.0.1");
-        ipString = new JTextField("127.0.0.1");
-//        ipString.setMaximumSize(new Dimension(200, 30));
-//        ipString.setMinimumSize(new Dimension(75, 30));
+//        ipLbl.setAlignmentY(Component.TOP_ALIGNMENT);
+//        ipLbl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlCnctipLbl.add(ipLbl);
+        pnlCnctLbls.add(pnlCnctipLbl);
+        JPanel pnlCnctLblpd = new JPanel();
+        pnlCnctLblpd.setMaximumSize(new Dimension(85, 5));
+        pnlCnctLblpd.setMinimumSize(new Dimension(55, 5));
+        pnlCnctLbls.add(pnlCnctLblpd);
+        JPanel pnlCnctlblCtrl = new JPanel();
+        pnlCnctlblCtrl.setMaximumSize(new Dimension(85, 30));
+        pnlCnctlblCtrl.setMinimumSize(new Dimension(55, 25));
+        pnlCnctlblCtrl.setLayout(new BoxLayout(pnlCnctlblCtrl, BoxLayout.X_AXIS));
+        JLabel lblCtrl = new JLabel("Device:");
+        lblCtrl.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        lblCtrl.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+//        lblCtrl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlCnctlblCtrl.add(lblCtrl);
+        pnlCnctLbls.add(pnlCnctlblCtrl);
+        pnlCnctDtl.add(pnlCnctLbls);
+        // ip, port text areas (x) + device (y)
+        JPanel pnlCnctDtlFlds = new JPanel();
+        pnlCnctDtlFlds.setMaximumSize(new Dimension(795, 150));
+        pnlCnctDtlFlds.setMinimumSize(new Dimension(415, 80));
+        pnlCnctDtlFlds.setLayout(new BoxLayout(pnlCnctDtlFlds, BoxLayout.Y_AXIS));
+//        pnlCnctDtlFlds.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlCnctDtlFlds.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlCnctDtlIpPortFlds = new JPanel();
+        pnlCnctDtlIpPortFlds.setMaximumSize(new Dimension(795, 30));
+        pnlCnctDtlIpPortFlds.setMinimumSize(new Dimension(415, 25));
+        pnlCnctDtlIpPortFlds.setLayout(new BoxLayout(pnlCnctDtlIpPortFlds, BoxLayout.X_AXIS));
+        JTextField ipString = new JTextField("127.0.0.1");
         ipString.setToolTipText("Device/Controller IP Address required.");
         ipString.setAlignmentX(Component.LEFT_ALIGNMENT);
-        ipString.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
-        pnlCnctDtl.add(ipString);
-//        pnlCnctDtl.add(ipString, c);
-
+//        ipString.setAlignmentY(Component.TOP_ALIGNMENT);
+        ipString.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlCnctDtlIpPortFlds.add(ipString);
         JLabel portLbl = new JLabel("Port:");
-//        portLbl.setMaximumSize(new Dimension(75, 30));
-//        portLbl.setMinimumSize(new Dimension(50, 30));
         portLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        portLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
-        pnlCnctDtl.add(portLbl);
-//        JTextField portString = new JTextField("4545");
-        portString = new JTextField("4545");
-//        portString.setMaximumSize(new Dimension(200, 30));
-//        portString.setMinimumSize(new Dimension(75, 30));
+//        portLbl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        portLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 35));
+        pnlCnctDtlIpPortFlds.add(portLbl);
+        JTextField portString = new JTextField("4545");
         portString.setToolTipText("Device/Controller Port Id required.");
         portString.setAlignmentX(Component.LEFT_ALIGNMENT);
-        portString.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-        pnlCnctDtl.add(portString);
-//        pnlCnctDtl.add(portString, c);
-
-        pnlCnctMain.add(pnlCnctDtl);
-
-        JPanel pnlDeviceDtl = new JPanel();
-        pnlDeviceDtl.setMaximumSize(new Dimension(920, 35));
-        pnlDeviceDtl.setMinimumSize(new Dimension(500, 30));
-        pnlDeviceDtl.setLayout(new BoxLayout(pnlDeviceDtl, BoxLayout.X_AXIS));
-        pnlDeviceDtl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//        pnlDeviceDtl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        JLabel lblCtrl = new JLabel("Device:");
-//        lblCtrl.setMaximumSize(new Dimension(75, 30));
-//        lblCtrl.setMinimumSize(new Dimension(50, 30));
-        lblCtrl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        lblCtrl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
-        pnlDeviceDtl.add(lblCtrl);
+//        portString.setAlignmentY(Component.TOP_ALIGNMENT);
+        portString.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlCnctDtlIpPortFlds.add(portString);
+        pnlCnctDtlFlds.add(pnlCnctDtlIpPortFlds);
+        JPanel pnlCnctDtlFldspd = new JPanel();
+        pnlCnctDtlFldspd.setMaximumSize(new Dimension(795, 5));
+        pnlCnctDtlFldspd.setMinimumSize(new Dimension(415, 5));
+        pnlCnctDtlFlds.add(pnlCnctDtlFldspd);
+        JPanel pnlCnctDtlctrlNameFlds = new JPanel();
+        pnlCnctDtlctrlNameFlds.setMaximumSize(new Dimension(795, 30));
+        pnlCnctDtlctrlNameFlds.setMinimumSize(new Dimension(415, 25));
+        pnlCnctDtlctrlNameFlds.setLayout(new BoxLayout(pnlCnctDtlctrlNameFlds, BoxLayout.X_AXIS));
         JTextField ctrlName = new JTextField("deviceName");
-//        JTextArea ctrlName = new JTextArea("deviceName");
-//        ctrlName.setMaximumSize(new Dimension(800, 30));
-//        ctrlName.setMinimumSize(new Dimension(400, 30));
         ctrlName.setToolTipText("Device/Controller Name.");
         ctrlName.setAlignmentX(Component.LEFT_ALIGNMENT);
-        ctrlName.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-        pnlDeviceDtl.add(ctrlName);
-//        pnlDeviceDtl.add(ctrlName, c);
+//        ctrlName.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        ctrlName.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlCnctDtlctrlNameFlds.add(ctrlName);
+        pnlCnctDtlFlds.add(pnlCnctDtlctrlNameFlds);
+        pnlCnctDtl.add(pnlCnctDtlFlds);
+        pnlCnctMain.add(pnlCnctDtl);
 
-        pnlCnctMain.add(pnlDeviceDtl);
+        // ip/port JPanels
+//        pnlSubConatiner1.add(pnlCnctMain);
 
         return pnlCnctMain;
-    }
-    //
-    static JPanel timePanel() {
-        // Timing JPanels
-        JPanel pnlTmMain = new JPanel();
-        pnlTmMain.setMaximumSize(new Dimension(450, 350));
-        pnlTmMain.setMinimumSize(new Dimension(250, 135));
-        pnlTmMain.setLayout(new BoxLayout(pnlTmMain, BoxLayout.Y_AXIS));
-        pnlTmMain.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-
-        // Connection Header
-        JLabel lblTime = new JLabel("Keep Alive");
-        lblTime.setFont(new Font("Courier", Font.BOLD, 16));
-//        lblTime.setAlignmentX(Component.LEFT_ALIGNMENT);
-        lblTime.setAlignmentY(Component.TOP_ALIGNMENT);
-        pnlTmMain.add(lblTime);
-        JTextField tmUnit = new JTextField("sec.");
-        tmUnit.setEditable(false);
-
-        // Timing Detail
-        // delay and timeout text areas
-        JPanel pnlTmDelay = new JPanel();
-        pnlTmDelay.setLayout(new BoxLayout(pnlTmDelay, BoxLayout.X_AXIS));
-        pnlTmDelay.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        JLabel lblInitDelay = new JLabel("Delay:        ");
-//        lblInitDelay.setMaximumSize(new Dimension(75, 30));
-//        lblInitDelay.setMinimumSize(new Dimension(50, 30));
-        lblInitDelay.setAlignmentX(Component.LEFT_ALIGNMENT);
-        pnlTmDelay.add(lblInitDelay);
-//        JTextField initTimeout = new JTextField("75");
-        initTimeout = new JTextField("75");
-//        initTimeout.setMaximumSize(new Dimension(100, 30));
-//        initTimeout.setMinimumSize(new Dimension(35, 30));
-        initTimeout.setToolTipText("Initial delay period before sending keep alive message.");
-        initTimeout.setAlignmentX(Component.LEFT_ALIGNMENT);
-        initTimeout.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-        pnlTmDelay.add(initTimeout);
-
-        pnlTmMain.add(pnlTmDelay);
-
-        JPanel pnlTmPrd = new JPanel();
-        pnlTmPrd.setLayout(new BoxLayout(pnlTmPrd, BoxLayout.X_AXIS));
-        pnlTmPrd.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        JLabel lblTimeoutPrd = new JLabel("Timeout:   ");
-//        lblTimeoutPrd.setMaximumSize(new Dimension(75, 30));
-//        lblTimeoutPrd.setMinimumSize(new Dimension(50, 30));
-        lblTimeoutPrd.setAlignmentX(Component.LEFT_ALIGNMENT);
-        pnlTmPrd.add(lblTimeoutPrd);
-//        JTextField timeoutDelay = new JTextField("65");
-        timeoutDelay = new JTextField("65");
-//        timeoutDelay.setMaximumSize(new Dimension(100, 30));
-//        timeoutDelay.setMinimumSize(new Dimension(35, 30));
-        timeoutDelay.setToolTipText("Period between sending keep alive message.");
-        timeoutDelay.setAlignmentX(Component.LEFT_ALIGNMENT);
-        timeoutDelay.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-        pnlTmPrd.add(timeoutDelay);
-
-        pnlTmMain.add(pnlTmPrd);
-
-        return pnlTmMain;
     }
     //
     static JPanel midPanel() {
@@ -356,44 +307,333 @@ public class hostExe {
 //        pnlSubConatiner1.setMaximumSize(new Dimension(1400, 250));
 //        pnlSubConatiner1.setMinimumSize(new Dimension(750, 135));
 
+        // Connection JPanels
+        JPanel pnlCnctMain = new JPanel();
+        pnlCnctMain.setMaximumSize(new Dimension(920, 350));
+        pnlCnctMain.setMinimumSize(new Dimension(500, 135));
+        pnlCnctMain.setLayout(new BoxLayout(pnlCnctMain, BoxLayout.Y_AXIS));
+        pnlCnctMain.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlCnctMain.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        // Connection Header
+        JLabel lblManualConnect = new JLabel("Connection");
+        lblManualConnect.setFont(new Font("Courier", Font.BOLD, 16));
+        lblManualConnect.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblManualConnect.setAlignmentY(Component.TOP_ALIGNMENT);
+        pnlCnctMain.add(lblManualConnect);
+        // Connect Detail
+        JPanel pnlCnctDtl = new JPanel();
+        pnlCnctDtl.setMaximumSize(new Dimension(920, 150));
+        pnlCnctDtl.setMinimumSize(new Dimension(500, 80));
+        pnlCnctDtl.setLayout(new BoxLayout(pnlCnctDtl, BoxLayout.X_AXIS));
+//        pnlCnctDtl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        // labels
+        JPanel pnlCnctLbls = new JPanel();
+        pnlCnctLbls.setMaximumSize(new Dimension(85, 150));
+        pnlCnctLbls.setMinimumSize(new Dimension(55, 80));
+        pnlCnctLbls.setLayout(new BoxLayout(pnlCnctLbls, BoxLayout.Y_AXIS));
+        pnlCnctLbls.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlCnctipLbl = new JPanel();
+        pnlCnctipLbl.setMaximumSize(new Dimension(85, 30));
+        pnlCnctipLbl.setMinimumSize(new Dimension(55, 25));
+        pnlCnctipLbl.setLayout(new BoxLayout(pnlCnctipLbl, BoxLayout.X_AXIS));
+        JLabel ipLbl = new JLabel("Host:");
+        ipLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        ipLbl.setAlignmentY(Component.TOP_ALIGNMENT);
+//        ipLbl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlCnctipLbl.add(ipLbl);
+        pnlCnctLbls.add(pnlCnctipLbl);
+        JPanel pnlCnctLblpd = new JPanel();
+        pnlCnctLblpd.setMaximumSize(new Dimension(85, 5));
+        pnlCnctLblpd.setMinimumSize(new Dimension(55, 5));
+        pnlCnctLbls.add(pnlCnctLblpd);
+        JPanel pnlCnctlblCtrl = new JPanel();
+        pnlCnctlblCtrl.setMaximumSize(new Dimension(85, 30));
+        pnlCnctlblCtrl.setMinimumSize(new Dimension(55, 25));
+        pnlCnctlblCtrl.setLayout(new BoxLayout(pnlCnctlblCtrl, BoxLayout.X_AXIS));
+        JLabel lblCtrl = new JLabel("Device:");
+        lblCtrl.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        lblCtrl.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+//        lblCtrl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlCnctlblCtrl.add(lblCtrl);
+        pnlCnctLbls.add(pnlCnctlblCtrl);
+        pnlCnctDtl.add(pnlCnctLbls);
+        // ip, port text areas (x) + device (y)
+        JPanel pnlCnctDtlFlds = new JPanel();
+        pnlCnctDtlFlds.setMaximumSize(new Dimension(795, 150));
+        pnlCnctDtlFlds.setMinimumSize(new Dimension(415, 80));
+        pnlCnctDtlFlds.setLayout(new BoxLayout(pnlCnctDtlFlds, BoxLayout.Y_AXIS));
+//        pnlCnctDtlFlds.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlCnctDtlFlds.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlCnctDtlIpPortFlds = new JPanel();
+        pnlCnctDtlIpPortFlds.setMaximumSize(new Dimension(795, 30));
+        pnlCnctDtlIpPortFlds.setMinimumSize(new Dimension(415, 25));
+        pnlCnctDtlIpPortFlds.setLayout(new BoxLayout(pnlCnctDtlIpPortFlds, BoxLayout.X_AXIS));
+        JTextField ipString = new JTextField("127.0.0.1");
+        ipString.setToolTipText("Device/Controller IP Address required.");
+        ipString.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        ipString.setAlignmentY(Component.TOP_ALIGNMENT);
+        ipString.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlCnctDtlIpPortFlds.add(ipString);
+        JLabel portLbl = new JLabel("Port:");
+        portLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        portLbl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        portLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 35));
+        pnlCnctDtlIpPortFlds.add(portLbl);
+        JTextField portString = new JTextField("4545");
+        portString.setToolTipText("Device/Controller Port Id required.");
+        portString.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        portString.setAlignmentY(Component.TOP_ALIGNMENT);
+        portString.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlCnctDtlIpPortFlds.add(portString);
+        pnlCnctDtlFlds.add(pnlCnctDtlIpPortFlds);
+        JPanel pnlCnctDtlFldspd = new JPanel();
+        pnlCnctDtlFldspd.setMaximumSize(new Dimension(795, 5));
+        pnlCnctDtlFldspd.setMinimumSize(new Dimension(415, 5));
+        pnlCnctDtlFlds.add(pnlCnctDtlFldspd);
+        JPanel pnlCnctDtlctrlNameFlds = new JPanel();
+        pnlCnctDtlctrlNameFlds.setMaximumSize(new Dimension(795, 30));
+        pnlCnctDtlctrlNameFlds.setMinimumSize(new Dimension(415, 25));
+        pnlCnctDtlctrlNameFlds.setLayout(new BoxLayout(pnlCnctDtlctrlNameFlds, BoxLayout.X_AXIS));
+        JTextField ctrlName = new JTextField("deviceName");
+        ctrlName.setToolTipText("Device/Controller Name.");
+        ctrlName.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        ctrlName.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        ctrlName.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlCnctDtlctrlNameFlds.add(ctrlName);
+        pnlCnctDtlFlds.add(pnlCnctDtlctrlNameFlds);
+        pnlCnctDtl.add(pnlCnctDtlFlds);
+        pnlCnctMain.add(pnlCnctDtl);
+
+        // ip/port JPanels
+        pnlSubConatiner1.add(pnlCnctMain);
+
+        //
+        // Timing JPanels
+        JPanel pnlTmMain = new JPanel();
+        pnlTmMain.setMaximumSize(new Dimension(250, 350));
+        pnlTmMain.setMinimumSize(new Dimension(185, 135));
+        pnlTmMain.setLayout(new BoxLayout(pnlTmMain, BoxLayout.Y_AXIS));
+        pnlTmMain.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlTmMain.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        // Connection Header
+        JLabel lblTime = new JLabel("Keep Alive");
+        lblTime.setFont(new Font("Courier", Font.BOLD, 16));
+        lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblTime.setAlignmentY(Component.TOP_ALIGNMENT);
+        pnlTmMain.add(lblTime);
+        // Timing Detail
+        JPanel pnlTmDtl = new JPanel();
+        pnlTmDtl.setMaximumSize(new Dimension(200, 150));
+        pnlTmDtl.setMinimumSize(new Dimension(125, 80));
+        pnlTmDtl.setLayout(new BoxLayout(pnlTmDtl, BoxLayout.X_AXIS));
+        // labels
+        JPanel pnlTmLbls = new JPanel();
+        pnlTmLbls.setMaximumSize(new Dimension(85, 150));
+        pnlTmLbls.setMinimumSize(new Dimension(55, 80));
+        pnlTmLbls.setLayout(new BoxLayout(pnlTmLbls, BoxLayout.Y_AXIS));
+        pnlTmLbls.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlTmDelay = new JPanel();
+        pnlTmDelay.setMaximumSize(new Dimension(85, 30));
+        pnlTmDelay.setMinimumSize(new Dimension(55, 25));
+        pnlTmDelay.setLayout(new BoxLayout(pnlTmDelay, BoxLayout.X_AXIS));
+        JLabel lblInitDelay = new JLabel("Delay:");
+        lblInitDelay.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlTmDelay.add(lblInitDelay);
+        pnlTmLbls.add(pnlTmDelay);
+        JPanel pnlTmLblpd = new JPanel();
+        pnlTmLblpd.setMaximumSize(new Dimension(85, 5));
+        pnlTmLblpd.setMinimumSize(new Dimension(55, 5));
+        pnlTmLbls.add(pnlTmLblpd);
+        JPanel pnlTmPrd = new JPanel();
+        pnlTmPrd.setMaximumSize(new Dimension(85, 30));
+        pnlTmPrd.setMinimumSize(new Dimension(55, 25));
+        pnlTmPrd.setLayout(new BoxLayout(pnlTmPrd, BoxLayout.X_AXIS));
+        JLabel lblTimeoutPrd = new JLabel("Timeout:");
+        lblTimeoutPrd.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlTmPrd.add(lblTimeoutPrd);
+        pnlTmLbls.add(pnlTmPrd);
+        pnlTmDtl.add(pnlTmLbls);
+        // delay and timeout text areas
+        JPanel pnlTmDtlFlds = new JPanel();
+        pnlTmDtlFlds.setMaximumSize(new Dimension(85, 150));
+        pnlTmDtlFlds.setMinimumSize(new Dimension(65, 80));
+        pnlTmDtlFlds.setLayout(new BoxLayout(pnlTmDtlFlds, BoxLayout.Y_AXIS));
+        pnlTmDtlFlds.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlTmDtlInitTmFlds = new JPanel();
+        pnlTmDtlInitTmFlds.setMaximumSize(new Dimension(85, 30));
+        pnlTmDtlInitTmFlds.setMinimumSize(new Dimension(65, 25));
+        pnlTmDtlInitTmFlds.setLayout(new BoxLayout(pnlTmDtlInitTmFlds, BoxLayout.X_AXIS));
+        JTextField initTimeout = new JTextField("75.0");
+        initTimeout.setMaximumSize(new Dimension(30, 30));
+        initTimeout.setMinimumSize(new Dimension(30, 25));
+        initTimeout.setLayout(new BoxLayout(initTimeout, BoxLayout.X_AXIS));
+        initTimeout.setToolTipText("Initial delay period before sending keep alive message.");
+        initTimeout.setAlignmentX(Component.LEFT_ALIGNMENT);
+        initTimeout.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 0));
+        pnlTmDtlInitTmFlds.add(initTimeout);
+        JTextField InitTmUnit = new JTextField("sec.");
+        InitTmUnit.setMaximumSize(new Dimension(50, 30));
+        InitTmUnit.setMinimumSize(new Dimension(30, 25));
+        InitTmUnit.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        InitTmUnit.setBackground(Color.white);
+        InitTmUnit.setLayout(new BoxLayout(InitTmUnit, BoxLayout.X_AXIS));
+        InitTmUnit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        InitTmUnit.setEditable(false);
+        pnlTmDtlInitTmFlds.add(InitTmUnit);
+        pnlTmDtlFlds.add(pnlTmDtlInitTmFlds);
+        JPanel pnlTmDtlFldsPd = new JPanel();
+        pnlTmDtlFldsPd.setMaximumSize(new Dimension(85, 5));
+        pnlTmDtlFldsPd.setMinimumSize(new Dimension(65, 5));
+        pnlTmDtlFlds.add(pnlTmDtlFldsPd);
+        JPanel pnlTmDtlTmDlyFlds = new JPanel();
+        pnlTmDtlTmDlyFlds.setMaximumSize(new Dimension(85, 30));
+        pnlTmDtlTmDlyFlds.setMinimumSize(new Dimension(65, 25));
+        pnlTmDtlTmDlyFlds.setLayout(new BoxLayout(pnlTmDtlTmDlyFlds, BoxLayout.X_AXIS));
+        JTextField timeoutDelay = new JTextField("65.0");
+        timeoutDelay.setMaximumSize(new Dimension(30, 30));
+        timeoutDelay.setMinimumSize(new Dimension(30, 25));
+        timeoutDelay.setLayout(new BoxLayout(timeoutDelay, BoxLayout.X_AXIS));
+        timeoutDelay.setToolTipText("Period between sending keep alive message.");
+        timeoutDelay.setAlignmentX(Component.LEFT_ALIGNMENT);
+        timeoutDelay.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
+        pnlTmDtlTmDlyFlds.add(timeoutDelay);
+        JTextField TmDlyUnit = new JTextField("sec.");
+        TmDlyUnit.setMaximumSize(new Dimension(50, 30));
+        TmDlyUnit.setMinimumSize(new Dimension(30, 25));
+        TmDlyUnit.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        TmDlyUnit.setBackground(Color.white);
+        TmDlyUnit.setLayout(new BoxLayout(TmDlyUnit, BoxLayout.X_AXIS));
+        TmDlyUnit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        TmDlyUnit.setEditable(false);
+        pnlTmDtlTmDlyFlds.add(TmDlyUnit);
+        pnlTmDtlFlds.add(pnlTmDtlTmDlyFlds);
+        pnlTmDtl.add(pnlTmDtlFlds);
+
+        pnlTmMain.add(pnlTmDtl);
+
+//        pnlSubConatiner1.add(timePanel());
+        pnlSubConatiner1.add(pnlTmMain);
+        // button
+        JPanel pnlbtnConnect = new JPanel();
+        pnlbtnConnect.setMaximumSize(new Dimension(200, 350));
+        pnlbtnConnect.setMinimumSize(new Dimension(200, 135));
+//        pnlbtnConnect.setLayout(new BoxLayout(pnlbtnConnect, BoxLayout.X_AXIS));
+        pnlbtnConnect.setLayout(new BoxLayout(pnlbtnConnect, BoxLayout.Y_AXIS));
+        pnlbtnConnect.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        pnlbtnConnect.setAlignmentY(Component.CENTER_ALIGNMENT);
+        JButton btnConnect = new JButton("start connection");
+        btnConnect.setLayout(new BoxLayout(btnConnect, BoxLayout.Y_AXIS));
+//        btnConnect.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnConnect.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlbtnConnect.add(btnConnect);
+        pnlSubConatiner1.add(pnlbtnConnect);
+//        pnlSubConatiner1.add(btnConnect);
+
+        pnlMainContainer.add(pnlSubConatiner1);
+//        pnlMainContainer.add(btnConnect);
+
+        //
         JPanel pnlSubConatiner2 = new JPanel();
-//        JPanel pnlSubConatiner2 = new JPanel(new GridBagLayout());
         pnlSubConatiner2.setMaximumSize(new Dimension(1400, 350));
-        pnlSubConatiner2.setMinimumSize(new Dimension(750, 135));
+        pnlSubConatiner2.setMinimumSize(new Dimension(850, 135));
         pnlSubConatiner2.setAlignmentY(Component.CENTER_ALIGNMENT);
         pnlSubConatiner2.setLayout(new BoxLayout(pnlSubConatiner2, BoxLayout.X_AXIS));
         pnlSubConatiner2.setBorder(BorderFactory.createEmptyBorder(5, 1, 10, 1));
 
-        JPanel pnlSubConatiner3 = new JPanel();
-//        JPanel pnlSubConatiner3 = new JPanel(new GridBagLayout());
-        pnlSubConatiner3.setMaximumSize(new Dimension(1400, 650));
-        pnlSubConatiner3.setMinimumSize(new Dimension(750, 300));
-        pnlSubConatiner3.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        pnlSubConatiner3.setLayout(new BoxLayout(pnlSubConatiner3, BoxLayout.X_AXIS));
-//        pnlSubConatiner3.setLayout(new BoxLayout(pnlSubConatiner3, BoxLayout.X_AXIS));
-        pnlSubConatiner3.setBorder(BorderFactory.createEmptyBorder(5, 1, 5, 1));
-
-        //
-        // ip/port JPanels
-        pnlSubConatiner1.add(connectionPanel());
-
-        //
-        // Timing JPanels
-        pnlSubConatiner1.add(timePanel());
-
-        pnlMainContainer.add(pnlSubConatiner1);
-//        pnlMainContainer.
-
-        // button
-        JButton btnConnect = new JButton("start connection");
-        btnConnect.setAlignmentX(Component.LEFT_ALIGNMENT);
-        btnConnect.setAlignmentY(Component.CENTER_ALIGNMENT);
-        pnlSubConatiner1.add(btnConnect);
         //
         // MID section
-//        pnlMidContainer.add(pnlSerializedMidCommand);
-//        pnlSubConatiner2.add(pnlMidContainer);
-        pnlSubConatiner2.add(midPanel());
+        JPanel pnlMidContainer = new JPanel();
+        pnlMidContainer.setMaximumSize(new Dimension(1200, 350));
+        pnlMidContainer.setMinimumSize(new Dimension(700, 135));
+        pnlMidContainer.setLayout(new BoxLayout(pnlMidContainer, BoxLayout.Y_AXIS));
+        pnlMidContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlMidContainer.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        // MID Header
+        JPanel pnllblMessages = new JPanel();
+        pnllblMessages.setLayout(new BoxLayout(pnllblMessages, BoxLayout.X_AXIS));
+        pnllblMessages.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel lblMessages = new JLabel("MID Messages");
+        lblMessages.setFont(new Font("Courier", Font.BOLD, 14));
+        lblMessages.setLayout(new BoxLayout(lblMessages, BoxLayout.X_AXIS));
+//        lblMessages.setAlignmentY(Component.CENTER_ALIGNMENT);
+        lblMessages.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        lblMessages.setAlignmentY(Component.TOP_ALIGNMENT);
+        pnllblMessages.add(lblMessages);
+        pnlMidContainer.add(pnllblMessages);
+        // mid command container
+        JPanel pnlMidCommand = new JPanel();
+        pnlMidCommand.setMaximumSize(new Dimension(1200, 150));
+        pnlMidCommand.setMinimumSize(new Dimension(700, 80));
+        pnlMidCommand.setLayout(new BoxLayout(pnlMidCommand, BoxLayout.X_AXIS));
+        // labels
+        JPanel pnlAllMIDLbls = new JPanel();
+        pnlAllMIDLbls.setMaximumSize(new Dimension(85, 150));
+        pnlAllMIDLbls.setMinimumSize(new Dimension(55, 80));
+        pnlAllMIDLbls.setLayout(new BoxLayout(pnlAllMIDLbls, BoxLayout.Y_AXIS));
+        pnlAllMIDLbls.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlMIDLbl = new JPanel();
+        pnlMIDLbl.setMaximumSize(new Dimension(85, 30));
+        pnlMIDLbl.setMinimumSize(new Dimension(55, 25));
+        pnlMIDLbl.setLayout(new BoxLayout(pnlMIDLbl, BoxLayout.X_AXIS));
+        JLabel lblMID = new JLabel("MID Command:");
+        lblMID.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlMIDLbl.add(lblMID);
+        pnlAllMIDLbls.add(pnlMIDLbl);
+        JPanel pnlSerializedMIDLbl = new JPanel();
+        pnlSerializedMIDLbl.setMaximumSize(new Dimension(85, 30));
+        pnlSerializedMIDLbl.setMinimumSize(new Dimension(55, 25));
+        pnlSerializedMIDLbl.setLayout(new BoxLayout(pnlSerializedMIDLbl, BoxLayout.X_AXIS));
+        JLabel lblSerialized = new JLabel("Serialized MID:");
+        lblSerialized.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlSerializedMIDLbl.add(lblSerialized);
+        pnlAllMIDLbls.add(pnlSerializedMIDLbl);
+        pnlMidCommand.add(pnlAllMIDLbls);
+        // MID Command and input vals section
+        JPanel pnlMIDDtlFlds = new JPanel();
+        pnlMIDDtlFlds.setMaximumSize(new Dimension(1000, 150));
+        pnlMIDDtlFlds.setMinimumSize(new Dimension(600, 80));
+        pnlMIDDtlFlds.setLayout(new BoxLayout(pnlMIDDtlFlds, BoxLayout.Y_AXIS));
+        pnlMIDDtlFlds.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel pnlMIDDtlCmdInVFlds = new JPanel();
+        pnlMIDDtlCmdInVFlds.setMaximumSize(new Dimension(1000, 30));
+        pnlMIDDtlCmdInVFlds.setMinimumSize(new Dimension(600, 25));
+        pnlMIDDtlCmdInVFlds.setLayout(new BoxLayout(pnlMIDDtlCmdInVFlds, BoxLayout.X_AXIS));
+        JTextField midString = new JTextField();
+        midString.setToolTipText("'MID' Command");
+        midString.setAlignmentX(Component.LEFT_ALIGNMENT);
+        midString.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlMIDDtlCmdInVFlds.add(midString);
+        JLabel lblVals = new JLabel("Input Values:");
+        lblVals.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblVals.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 35));
+        pnlMIDDtlCmdInVFlds.add(lblVals);
+        JTextField midInputString = new JTextField();
+        midInputString.setToolTipText("include MID command values if applicable.");
+        midInputString.setAlignmentX(Component.LEFT_ALIGNMENT);
+        midInputString.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlMIDDtlCmdInVFlds.add(midInputString);
+        pnlMIDDtlFlds.add(pnlMIDDtlCmdInVFlds);
+        JPanel pnlMIDDtlFldsPd = new JPanel();
+        pnlMIDDtlFldsPd.setMaximumSize(new Dimension(1000, 5));
+        pnlMIDDtlFldsPd.setMinimumSize(new Dimension(600, 5));
+        pnlMIDDtlFlds.add(pnlMIDDtlFldsPd);
+        JPanel pnlMIDDtlSrlzdFlds = new JPanel();
+        pnlMIDDtlSrlzdFlds.setMaximumSize(new Dimension(1000, 30));
+        pnlMIDDtlSrlzdFlds.setMinimumSize(new Dimension(600, 25));
+        pnlMIDDtlSrlzdFlds.setLayout(new BoxLayout(pnlMIDDtlSrlzdFlds, BoxLayout.X_AXIS));
+        JTextField serializedMidString = new JTextField();
+        serializedMidString.setToolTipText("include serialized MID message.");
+        serializedMidString.setAlignmentX(Component.LEFT_ALIGNMENT);
+        serializedMidString.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 10));
+        pnlMIDDtlSrlzdFlds.add(serializedMidString);
+        pnlMIDDtlFlds.add(pnlMIDDtlSrlzdFlds);
+        pnlMidCommand.add(pnlMIDDtlFlds);
+        pnlMidContainer.add(pnlMidCommand);
+
+//        pnlSubConatiner2.add(midPanel());
+        pnlSubConatiner2.add(pnlMidContainer);
+
+
         // main mid container
         JButton btnSendMid = new JButton("Send");
 //        btnSendMid.setMaximumSize(new Dimension(50, 35));
@@ -410,6 +650,18 @@ public class hostExe {
         pnlSubConatiner2.add(btnSendSerializedMid);
 
         pnlMainContainer.add(pnlSubConatiner2);
+
+
+        JPanel pnlSubConatiner3 = new JPanel();
+//        JPanel pnlSubConatiner3 = new JPanel(new GridBagLayout());
+        pnlSubConatiner3.setMaximumSize(new Dimension(1400, 650));
+        pnlSubConatiner3.setMinimumSize(new Dimension(750, 300));
+        pnlSubConatiner3.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        pnlSubConatiner3.setLayout(new BoxLayout(pnlSubConatiner3, BoxLayout.X_AXIS));
+//        pnlSubConatiner3.setLayout(new BoxLayout(pnlSubConatiner3, BoxLayout.X_AXIS));
+        pnlSubConatiner3.setBorder(BorderFactory.createEmptyBorder(5, 1, 5, 1));
+
+        //
 
         //
         // dialog box text area
