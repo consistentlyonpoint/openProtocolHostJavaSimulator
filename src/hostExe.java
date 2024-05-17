@@ -10,87 +10,107 @@ import java.time.format.DateTimeFormatter;
 
 public class hostExe {
 
-//    static JTextField ipString;
-    static JTextArea ipString;
-    static JTextArea portString;
-    static JTextArea initTimeout;
-    static JTextArea timeoutDelay;
-//    static JTextField midString;
-    static JTextArea midString;
+    static JTextField ipString;
+//    static JTextArea ipString;
+    static JTextField portString;
+    static JTextField initTimeout;
+    static JTextField timeoutDelay;
+
+//    static JTextArea midString;
+    static JTextField midString;
+
 //    static JTextField serializedMidString;
     static JTextArea serializedMidString;
-//    static JTextField midInputString;
-    static JTextArea midInputString;
+
+    static JTextField midInputString;
+//    static JTextArea midInputString;
+    static JTextArea dialogBox;
     //
     static JPanel connectionPanel() {
+//        GridBagConstraints c = new GridBagConstraints();
+//        c.gridx = 150;
+//        c.gridy = 0;
+
         // Connection JPanels
         JPanel pnlCnctMain = new JPanel();
         pnlCnctMain.setMaximumSize(new Dimension(920, 350));
         pnlCnctMain.setMinimumSize(new Dimension(500, 135));
         pnlCnctMain.setLayout(new BoxLayout(pnlCnctMain, BoxLayout.Y_AXIS));
-        pnlCnctMain.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        pnlCnctMain.setAlignmentX(Component.LEFT_ALIGNMENT);
         pnlCnctMain.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         // Connection Header
         JLabel lblManualConnect = new JLabel("Connection");
         lblManualConnect.setFont(new Font("Courier", Font.BOLD, 16));
-//        lblManualConnect.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        lblManualConnect.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblManualConnect.setAlignmentY(Component.TOP_ALIGNMENT);
         pnlCnctMain.add(lblManualConnect);
 
         // Connect Detail
         // ip and port text areas
         JPanel pnlCnctDtl = new JPanel();
+        pnlCnctDtl.setMaximumSize(new Dimension(920, 35));
+        pnlCnctDtl.setMinimumSize(new Dimension(500, 30));
         pnlCnctDtl.setLayout(new BoxLayout(pnlCnctDtl, BoxLayout.X_AXIS));
+//        pnlCnctDtl.setLayout(new GridBagLayout());
         pnlCnctDtl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//        pnlCnctDtl.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel ipLbl = new JLabel("Host:      ");
+        JLabel ipLbl = new JLabel("Host:");
 //        ipLbl.setMaximumSize(new Dimension(75, 30));
 //        ipLbl.setMinimumSize(new Dimension(50, 30));
         ipLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        ipLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
         pnlCnctDtl.add(ipLbl);
 //        JTextField ipString = new JTextField("127.0.0.1");
-        ipString = new JTextArea("127.0.0.1");
+        ipString = new JTextField("127.0.0.1");
 //        ipString.setMaximumSize(new Dimension(200, 30));
 //        ipString.setMinimumSize(new Dimension(75, 30));
         ipString.setToolTipText("Device/Controller IP Address required.");
         ipString.setAlignmentX(Component.LEFT_ALIGNMENT);
-        ipString.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+        ipString.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
         pnlCnctDtl.add(ipString);
+//        pnlCnctDtl.add(ipString, c);
 
-        JLabel portLbl = new JLabel("Port:    ");
+        JLabel portLbl = new JLabel("Port:");
 //        portLbl.setMaximumSize(new Dimension(75, 30));
 //        portLbl.setMinimumSize(new Dimension(50, 30));
         portLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        portLbl.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        portLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
         pnlCnctDtl.add(portLbl);
 //        JTextField portString = new JTextField("4545");
-        portString = new JTextArea("4545");
+        portString = new JTextField("4545");
 //        portString.setMaximumSize(new Dimension(200, 30));
 //        portString.setMinimumSize(new Dimension(75, 30));
         portString.setToolTipText("Device/Controller Port Id required.");
         portString.setAlignmentX(Component.LEFT_ALIGNMENT);
         portString.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
         pnlCnctDtl.add(portString);
+//        pnlCnctDtl.add(portString, c);
 
         pnlCnctMain.add(pnlCnctDtl);
 
         JPanel pnlDeviceDtl = new JPanel();
+        pnlDeviceDtl.setMaximumSize(new Dimension(920, 35));
+        pnlDeviceDtl.setMinimumSize(new Dimension(500, 30));
         pnlDeviceDtl.setLayout(new BoxLayout(pnlDeviceDtl, BoxLayout.X_AXIS));
         pnlDeviceDtl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        JLabel lblCtrl = new JLabel("Device:    ");
+//        pnlDeviceDtl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel lblCtrl = new JLabel("Device:");
 //        lblCtrl.setMaximumSize(new Dimension(75, 30));
 //        lblCtrl.setMinimumSize(new Dimension(50, 30));
         lblCtrl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblCtrl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
         pnlDeviceDtl.add(lblCtrl);
-//        JTextField ctrlName = new JTextField("deviceName");
-        JTextArea ctrlName = new JTextArea("deviceName");
-//        ctrlName.setMaximumSize(new Dimension(200, 30));
-//        ctrlName.setMinimumSize(new Dimension(75, 30));
+        JTextField ctrlName = new JTextField("deviceName");
+//        JTextArea ctrlName = new JTextArea("deviceName");
+//        ctrlName.setMaximumSize(new Dimension(800, 30));
+//        ctrlName.setMinimumSize(new Dimension(400, 30));
         ctrlName.setToolTipText("Device/Controller Name.");
         ctrlName.setAlignmentX(Component.LEFT_ALIGNMENT);
         ctrlName.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
         pnlDeviceDtl.add(ctrlName);
+//        pnlDeviceDtl.add(ctrlName, c);
 
         pnlCnctMain.add(pnlDeviceDtl);
 
@@ -126,7 +146,7 @@ public class hostExe {
         lblInitDelay.setAlignmentX(Component.LEFT_ALIGNMENT);
         pnlTmDelay.add(lblInitDelay);
 //        JTextField initTimeout = new JTextField("75");
-        initTimeout = new JTextArea("75");
+        initTimeout = new JTextField("75");
 //        initTimeout.setMaximumSize(new Dimension(100, 30));
 //        initTimeout.setMinimumSize(new Dimension(35, 30));
         initTimeout.setToolTipText("Initial delay period before sending keep alive message.");
@@ -145,7 +165,7 @@ public class hostExe {
         lblTimeoutPrd.setAlignmentX(Component.LEFT_ALIGNMENT);
         pnlTmPrd.add(lblTimeoutPrd);
 //        JTextField timeoutDelay = new JTextField("65");
-        timeoutDelay = new JTextArea("65");
+        timeoutDelay = new JTextField("65");
 //        timeoutDelay.setMaximumSize(new Dimension(100, 30));
 //        timeoutDelay.setMinimumSize(new Dimension(35, 30));
         timeoutDelay.setToolTipText("Period between sending keep alive message.");
@@ -186,7 +206,7 @@ public class hostExe {
         pnlMidCommand.add(lblMID);
         // MID Command and input vals section
 //        JTextField midString = new JTextField();
-        midString = new JTextArea();
+        midString = new JTextField();
 //        midString.setMaximumSize(new Dimension(250, 30));
 //        midString.setMinimumSize(new Dimension(100, 30));
         midString.setToolTipText("'MID' Command");
@@ -202,7 +222,7 @@ public class hostExe {
         pnlMidCommand.add(lblVals);
 //        JTextField timeoutDelay = new JTextField("65");
 //        JTextField midInputString = new JTextField();
-        midInputString = new JTextArea();
+        midInputString = new JTextField();
 //        midInputString.setMaximumSize(new Dimension(250, 30));
 //        midInputString.setMinimumSize(new Dimension(100, 30));
         midInputString.setToolTipText("include MID command values if applicable.");
@@ -232,8 +252,57 @@ public class hostExe {
         pnlSerializedMidCommand.add(serializedMidString);
 
         pnlMidContainer.add(pnlSerializedMidCommand);
-        
+
         return pnlMidContainer;
+    }
+    //
+    static JPanel dialogPanel() {
+        // Dialog section
+        JPanel pnlDialogContainer = new JPanel();
+        pnlDialogContainer.setMaximumSize(new Dimension(1300, 600));
+        pnlDialogContainer.setMinimumSize(new Dimension(750, 300));
+        pnlDialogContainer.setLayout(new BoxLayout(pnlDialogContainer, BoxLayout.Y_AXIS));
+//        pnlDialogContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        pnlDialogContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlDialogContainer.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        JPanel pnlLblDialog = new JPanel();
+        pnlLblDialog.setLayout(new BoxLayout(pnlLblDialog, BoxLayout.X_AXIS));
+//        pnlLblDialog.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlLblDialog.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
+        // Dialog Header
+        JLabel lblDialog = new JLabel("Communication Log                ");
+        lblDialog.setFont(new Font("Courier", Font.BOLD, 14));
+        lblDialog.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        pnlLblDialog.add(lblDialog);
+
+        pnlDialogContainer.add(pnlLblDialog);
+
+        // mid command container
+        JPanel pnldialogBox = new JPanel();
+        pnldialogBox.setLayout(new BoxLayout(pnldialogBox, BoxLayout.X_AXIS));
+        pnldialogBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+//        JTextArea dialogBox = new JTextArea();
+        dialogBox = new JTextArea();
+        dialogBox.setLineWrap(true);
+        dialogBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+        dialogBox.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        dialogBox.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+//        pnldialogBox.add(dialogBox);
+
+        JScrollPane scrollDialogContainer = new JScrollPane(dialogBox);
+//        JScrollPane scrollDialogContainer = new JScrollPane(pnldialogBox);
+//        pnlDialogContainer.add(scrollDialogContainer);
+        pnldialogBox.add(scrollDialogContainer);
+
+//        pnlDialogContainer.add(dialogBox);
+
+        pnlDialogContainer.add(pnldialogBox);
+
+        //pnlDialogContainer.add(dialogBox);
+
+        return pnlDialogContainer;
     }
     //
     public static void createDialog() {
@@ -242,14 +311,17 @@ public class hostExe {
         openProtocolClientSerializerMIDClass oPCS = new openProtocolClientSerializerMIDClass();
         // Host Frame
         JFrame frame = new JFrame("Host");
-        frame.setMaximumSize(new Dimension(1600, 1100));
-        frame.setMinimumSize(new Dimension(900, 600));
+////        frame.setMaximumSize(new Dimension(1600, 1100));
+//        frame.setMinimumSize(new Dimension(900, 600));
+////        frame.setSize(new Dimension(1200, 800));
+//        frame.setSize(new Dimension(1600, 1100));
+
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.setResizable(false);
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
-                hostLogger.hostLog("exit", "abc", "info");
+                hostLogger.hostLog("exit", "closing window", "info");
                 try {
                     hostLogger.hostLog("exit", "closing window", "info");
                     hClient.stopConnection();
@@ -288,7 +360,7 @@ public class hostExe {
 //        JPanel pnlSubConatiner2 = new JPanel(new GridBagLayout());
         pnlSubConatiner2.setMaximumSize(new Dimension(1400, 350));
         pnlSubConatiner2.setMinimumSize(new Dimension(750, 135));
-        pnlSubConatiner1.setAlignmentY(Component.CENTER_ALIGNMENT);
+        pnlSubConatiner2.setAlignmentY(Component.CENTER_ALIGNMENT);
         pnlSubConatiner2.setLayout(new BoxLayout(pnlSubConatiner2, BoxLayout.X_AXIS));
         pnlSubConatiner2.setBorder(BorderFactory.createEmptyBorder(5, 1, 10, 1));
 
@@ -296,8 +368,9 @@ public class hostExe {
 //        JPanel pnlSubConatiner3 = new JPanel(new GridBagLayout());
         pnlSubConatiner3.setMaximumSize(new Dimension(1400, 650));
         pnlSubConatiner3.setMinimumSize(new Dimension(750, 300));
-        pnlSubConatiner1.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        pnlSubConatiner3.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         pnlSubConatiner3.setLayout(new BoxLayout(pnlSubConatiner3, BoxLayout.X_AXIS));
+//        pnlSubConatiner3.setLayout(new BoxLayout(pnlSubConatiner3, BoxLayout.X_AXIS));
         pnlSubConatiner3.setBorder(BorderFactory.createEmptyBorder(5, 1, 5, 1));
 
         //
@@ -312,77 +385,45 @@ public class hostExe {
 //        pnlMainContainer.
 
         // button
-        JPanel pnlCnctBtn = new JPanel();
-//        pnlCnctBtn.setLayout(new FlowLayout(FlowLayout.LEFT));
-//        pnlCnctBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        pnlCnctBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
-//        pnlCnctBtn.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-//        pnlCnctBtn.setMaximumSize(new Dimension(300, 85));
-//        pnlCnctBtn.setMinimumSize(new Dimension(200, 85));
         JButton btnConnect = new JButton("start connection");
         btnConnect.setAlignmentX(Component.LEFT_ALIGNMENT);
-//        btnConnect.setLayout(new FlowLayout(FlowLayout.LEFT));
-//        btnConnect.setMaximumSize(new Dimension(125, 35));
-//        btnConnect.setMinimumSize(new Dimension(75, 35));
-//        pnlCnctBtn.add(btnConnect);
-//        pnlManualConnect.add(btnConnect);
-//        pnlTm.add(btnConnect);
+        btnConnect.setAlignmentY(Component.CENTER_ALIGNMENT);
         pnlSubConatiner1.add(btnConnect);
-//        pnlMainContainer.add(btnConnect);
-//        pnlMainContainer.add(pnlCnctBtn);
-//        pnlMainContainer.add(btnConnect);
-
-//        pnlMainContainer.add(pnlManualConnect);
-//        pnlMainContainer.add(pnlSubConatiner1);
         //
         // MID section
-        // main mid container
-        JButton btnSendMid = new JButton("Send");
-        btnSendMid.setMaximumSize(new Dimension(50, 35));
-        btnSendMid.setMinimumSize(new Dimension(25, 35));
-        btnSendMid.setAlignmentY(Component.TOP_ALIGNMENT);
-        btnSendMid.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
-        JButton btnSendSerializedMid = new JButton("Send");
-        btnSendSerializedMid.setMaximumSize(new Dimension(50, 35));
-        btnSendSerializedMid.setMinimumSize(new Dimension(25, 35));
-        btnSendMid.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        btnSendSerializedMid.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
 //        pnlMidContainer.add(pnlSerializedMidCommand);
 //        pnlSubConatiner2.add(pnlMidContainer);
         pnlSubConatiner2.add(midPanel());
+        // main mid container
+        JButton btnSendMid = new JButton("Send");
+//        btnSendMid.setMaximumSize(new Dimension(50, 35));
+//        btnSendMid.setMinimumSize(new Dimension(25, 35));
+        btnSendMid.setAlignmentY(Component.TOP_ALIGNMENT);
+        btnSendMid.setAlignmentX(Component.LEFT_ALIGNMENT);
         pnlSubConatiner2.add(btnSendMid);
+
+        JButton btnSendSerializedMid = new JButton("Send");
+//        btnSendSerializedMid.setMaximumSize(new Dimension(50, 35));
+//        btnSendSerializedMid.setMinimumSize(new Dimension(25, 35));
+        btnSendSerializedMid.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        btnSendSerializedMid.setAlignmentX(Component.LEFT_ALIGNMENT);
         pnlSubConatiner2.add(btnSendSerializedMid);
+
         pnlMainContainer.add(pnlSubConatiner2);
 
         //
         // dialog box text area
-        JTextArea dialogBox = new JTextArea();
-//        dialogBox.setColumns(100);
-//        dialogBox.setRows(10);
-        dialogBox.setLineWrap(true);
-        //
-//        pnlMainContainer.add(pnlMidContainer);
-        //
-        // Dialog section
-        // dialog container
-        JPanel pnlDialogContainer = new JPanel();
-        JScrollPane scrollDialogContainer = new JScrollPane(dialogBox);
-
-        pnlDialogContainer.setLayout(new BoxLayout(pnlDialogContainer, BoxLayout.Y_AXIS));
-//        pnlDialogContainer.setMinimumSize(new Dimension(100, 50));
-        pnlDialogContainer.add("dialog", scrollDialogContainer);
-        // pnlDialogContainer.setLayout(new BoxLayout(pnlDialogContainer, BoxLayout.Y_AXIS));
-        // pnlDialogContainer.add("dialog", dialogBox);
-        pnlMainContainer.add(pnlDialogContainer);
+        pnlSubConatiner3.add(dialogPanel());
+//        pnlSubConatiner3.set(dialogPanel());
+        pnlMainContainer.add(pnlSubConatiner3);
         //
         // Exit Section
-        // Exit container
-        JPanel pnlEnd = new JPanel();
-        JButton exit = new JButton("Exit");
-        pnlEnd.add(exit);
-        pnlMainContainer.add(pnlEnd);
+        JButton btnExit = new JButton("Exit");
+        btnExit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnExit.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+
+        pnlMainContainer.add(btnExit);
+
         //
         // complete main container
 //        frame.add(pnlMainContainer);
@@ -486,7 +527,7 @@ public class hostExe {
 //                    o.printStackTrace();
             }
         });
-        exit.addActionListener(e -> {
+        btnExit.addActionListener(e -> {
             try {
                 hostLogger.hostLog("exit", "exit button", "info");
                 hClient.stopConnection();
