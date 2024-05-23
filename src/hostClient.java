@@ -24,16 +24,16 @@ public class hostClient {
             dataOut = new DataOutputStream(clientSocket.getOutputStream());
             inputStrRdr = new InputStreamReader(clientSocket.getInputStream());
 
-            // MID9999 keep alive msg
+            // midCommands.MID9999 keep alive msg
             scheduler = Executors.newScheduledThreadPool(1);
             scheduler.scheduleAtFixedRate(() -> {
-                // if controller replies to MID9999, use sendMessage.
+                // if controller replies to midCommands.MID9999, use sendMessage.
                 String autoReplyMessage = sendMessage("00209999001000000000" + "\0");
                 //
                 hostExe.appendDialog(dbox, "keep alive: " + "00209999001000000000" + "\0");
                 hostLogger.hostLog("startConnection", "host keep alive ", "info");
 
-                // if controller does not reply to MID9999, use sendNoReplyMessage.
+                // if controller does not reply to midCommands.MID9999, use sendNoReplyMessage.
 //                sendNoReplyMessage("00209999001000000000" + "\0");
                 System.out.println("MID9999 : " + "00209999001000000000");
             }, delay, timePeriod, TimeUnit.SECONDS);

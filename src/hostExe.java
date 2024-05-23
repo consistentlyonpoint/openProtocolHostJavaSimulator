@@ -648,7 +648,10 @@ public class hostExe {
                 String inputIdAddress = ipString.getText();
                 int inputPortId = Integer.parseInt(portString.getText());
 
-                hClient.startConnection(inputIdAddress, inputPortId, dialogBox, Integer.parseInt(initTimeout.getText()), Integer.parseInt(timeoutDelay.getText()));
+                int initDelay = (int) Float.parseFloat(initTimeout.getText());
+                int checkPeriod = (int) Float.parseFloat(timeoutDelay.getText());
+
+                hClient.startConnection(inputIdAddress, inputPortId, dialogBox, initDelay, checkPeriod);
                 //append & log the connection
                 appendDialog(dialogBox, "Connect to:\n" + inputIdAddress + ": " + inputPortId);
                 hostLogger.hostLog("host2Controller", "host connected to " + inputIdAddress + ": " + inputPortId, "info");
@@ -684,8 +687,18 @@ public class hostExe {
         btnSendMid.addActionListener(b -> {
             //
             try {
+//                System.out.println("attempting to get the combo box value");
+//                try {
+//                    System.out.println("get action cmd: " + midCmdCB.getActionCommand());
+//                    System.out.println("get action: " + midCmdCB.getAction());
+//                    System.out.println("getPrototypeDisplayValue: " + midCmdCB.getPrototypeDisplayValue());
+//                    System.out.println("getItemAt: " + midCmdCB.getItemAt(0));
+//                } catch (Throwable j) {
+//                    System.out.println("no luck with combobox: " + j.getMessage());
+//                }
 //                String midCommand = midString.getText();
-                String midCommand = midCmdCB.toString();
+//                String midCommand = midCmdCB.toString();
+                String midCommand = midCmdCB.getItemAt(0);
                 System.out.println("the combobox input was : " + midCommand);
                 String midValues = midInputString.getText();
                 //append & log the input

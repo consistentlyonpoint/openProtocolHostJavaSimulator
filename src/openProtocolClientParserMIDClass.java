@@ -60,5 +60,5 @@ public class openProtocolClientParserMIDClass {
         return controllerMessageMap;
     }
 }
-//--MID0002
-//--MID0002
+//--midCommands.MID0002
+//--midCommands.MID0002
