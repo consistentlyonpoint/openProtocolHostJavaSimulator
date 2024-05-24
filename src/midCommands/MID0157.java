@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MID0157 {
     //
-    String replyMID(String answer) {
+    public String replyMID(String answer) {
         if (answer.equalsIgnoreCase("acknowledge")) {
             return "midCommands.MID0005";
         } else {
@@ -15,7 +15,7 @@ public class MID0157 {
     }
     //
     // MID 0157 Bypass Identifier
-    String integratorString(String midCommandValue, List<Object> dataFieldValue) {
+    public String integratorString(String midCommandValue, List<Object> dataFieldValue) {
         String midLengthString = "0020";
         String midRevision = "001";
         String midAckFlag = "0";
@@ -48,7 +48,7 @@ public class MID0157 {
         }
     }
     //
-    HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
+    public HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
         //
         HashMap<String, HashMap<String, Object>> midControllerHash = new HashMap<String, HashMap<String, Object>>();
         HashMap<String, Object> controllerHash = new HashMap<String, Object>();

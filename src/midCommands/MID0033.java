@@ -6,11 +6,11 @@ import java.util.List;
 
 public class MID0033 {
     //
-    String replyMID(String answer) {
+    public String replyMID(String answer) {
         return null;
     }
     //
-    String integratorString(String midCommandValue, List<Object> dataFieldValue) {
+    public String integratorString(String midCommandValue, List<Object> dataFieldValue) {
         //
         String midRevision = "001";
         String midAckFlag = "0";
@@ -82,7 +82,7 @@ public class MID0033 {
         return (midAscii + "\0");
     }
     //
-    HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
+    public HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
         //
         HashMap<String, HashMap<String, Object>> midControllerHash = new HashMap<String, HashMap<String, Object>>();
         HashMap<String, Object> controllerHash = new HashMap<String, Object>();

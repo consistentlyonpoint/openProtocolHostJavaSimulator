@@ -6,12 +6,12 @@ import java.util.List;
 
 public class MID0108 {
     //
-    String replyMID(String answer) {
+    public String replyMID(String answer) {
         return null;
     }
     //
     // MID 0108 Last PowerMACS tightening result data acknowledge
-    String integratorString(String midCommandValue, List<Object> dataFieldValue) {
+    public String integratorString(String midCommandValue, List<Object> dataFieldValue) {
 		//
         String midLengthString = "0021";
         String midRevision = "001";
@@ -52,7 +52,7 @@ public class MID0108 {
         }
     }
     //
-    HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
+    public HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
         //
         HashMap<String, HashMap<String, Object>> midControllerHash = new HashMap<String, HashMap<String, Object>>();
         HashMap<String, Object> controllerHash = new HashMap<String, Object>();

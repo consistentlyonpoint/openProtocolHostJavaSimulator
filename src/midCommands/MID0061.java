@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MID0061 {
     //
-    String replyMID(String answer) {
+    public String replyMID(String answer) {
         if (answer.equalsIgnoreCase("acknowledge")) {
             return "midCommands.MID0062";
         } else if (answer.equalsIgnoreCase("accept")) {
@@ -17,7 +17,7 @@ public class MID0061 {
     }
     //
     //  MID 0061 Last tightening result data
-    String integratorString(String midCommandValue, List<Object> dataFieldValue) {
+    public String integratorString(String midCommandValue, List<Object> dataFieldValue) {
         //
         String midLengthString = null;
         String midRevision = null;
@@ -297,7 +297,7 @@ public class MID0061 {
         return (midAscii + "\0");
     }
     //
-    HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
+    public HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
         //
         HashMap<String, HashMap<String, Object>> midControllerHash = new HashMap<String, HashMap<String, Object>>();
         HashMap<String, Object> controllerHash = new HashMap<String, Object>();

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MID0090 {
     //
-    String replyMID(String answer) {
+    public String replyMID(String answer) {
         if (answer.equalsIgnoreCase("acknowledge")) {
             return "MID005";
         } else if (answer.equalsIgnoreCase("accept")) {
@@ -19,7 +19,7 @@ public class MID0090 {
     }
     //
     // MID 0090 Multi-spindle status subscribe
-    String integratorString(String midCommandValue, List<Object> dataFieldValue) {
+    public String integratorString(String midCommandValue, List<Object> dataFieldValue) {
 		//
         String midLengthString = "0020";
         String midRevision = "001";
@@ -54,7 +54,7 @@ public class MID0090 {
         }
     }
     //
-    HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
+    public HashMap<String, HashMap<String, Object>> controllerString(String controllerMsg, String midCommand, String midLengthString, String midRevision) {
         //
         HashMap<String, HashMap<String, Object>> midControllerHash = new HashMap<String, HashMap<String, Object>>();
         HashMap<String, Object> controllerHash = new HashMap<String, Object>();
