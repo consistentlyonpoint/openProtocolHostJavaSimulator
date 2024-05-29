@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 public class hostClient {
     Socket clientSocket;
     DataOutputStream dataOut;
-    BufferedReader readerIn;
-    BufferedWriter buffWriter;
+//    BufferedReader readerIn;
+//    BufferedWriter buffWriter;
     //
     InputStreamReader inputStrRdr;
     ScheduledExecutorService scheduler;
@@ -33,9 +33,12 @@ public class hostClient {
                 hostExe.appendDialog(dbox, "keep alive: " + "00209999001000000000" + "\0");
                 hostLogger.hostLog("startConnection", "host keep alive ", "info");
 
+                hostExe.appendDialog(dbox, "controller message serialized: \n" + autoReplyMessage);
+                hostLogger.hostLog("controller2Host", "controller message serialized: " + autoReplyMessage, "info");
+
                 // if controller does not reply to midCommands.MID9999, use sendNoReplyMessage.
 //                sendNoReplyMessage("00209999001000000000" + "\0");
-                System.out.println("MID9999 : " + "00209999001000000000");
+//                System.out.println("MID9999 : " + "00209999001000000000");
             }, delay, timePeriod, TimeUnit.SECONDS);
 
         } catch (IOException e) {
@@ -106,8 +109,9 @@ public class hostClient {
     void stopConnection() {
         try {
             scheduler.shutdownNow();
-            buffWriter.close();
-            readerIn.close();
+            dataOut.close();
+//            buffWriter.close();
+//            readerIn.close();
             clientSocket.close();
 
         } catch (IOException e) {

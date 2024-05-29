@@ -25,6 +25,7 @@ public class hostExe {
     public static JTextField serializedMidString;
 //    public static JComboBox<String> midCmdCB;
     public static JTextArea dialogBox;
+    public static JButton btnConnect;
     public static JButton btnSendMid;
     public static JButton btnSendSerializedMid;
     public static hostClient hClient = new hostClient();
@@ -76,14 +77,14 @@ public class hostExe {
         JPanel pnlCnctLbls = new JPanel();
         pnlCnctLbls.setPreferredSize(new Dimension(85, 70));
 //        pnlCnctLbls.setMaximumSize(new Dimension(85, 70));
-        pnlCnctLbls.setMinimumSize(new Dimension(50, 70));
+//        pnlCnctLbls.setMinimumSize(new Dimension(50, 70));
         pnlCnctLbls.setMaximumSize(pnlCnctLbls.getPreferredSize());
 //        pnlCnctLbls.setMinimumSize(pnlCnctLbls.getPreferredSize());
         pnlCnctLbls.setLayout(new BoxLayout(pnlCnctLbls, BoxLayout.Y_AXIS));
         pnlCnctLbls.setAlignmentX(Component.LEFT_ALIGNMENT);
         JPanel pnlCnctipLbl = new JPanel();
         pnlCnctipLbl.setMaximumSize(new Dimension(85, 30));
-        pnlCnctipLbl.setMinimumSize(new Dimension(50, 30));
+//        pnlCnctipLbl.setMinimumSize(new Dimension(50, 30));
         pnlCnctipLbl.setLayout(new BoxLayout(pnlCnctipLbl, BoxLayout.X_AXIS));
         JLabel ipLbl = new JLabel("Host:");
         ipLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -380,13 +381,13 @@ public class hostExe {
                 if (mid.toLowerCase().contains(midString.toLowerCase())) {
                     filterMIDs.add(mid);
                 }
-                else {
-                    for (String m : midCmdDd) {
-                        if (!filterMIDs.contains(m)) {
-                            filterMIDs.add(m);
-                        }
-                    }
-                }
+//                else {
+//                    for (String m : midCmdDd) {
+//                        if (!filterMIDs.contains(m)) {
+//                            filterMIDs.add(m);
+//                        }
+//                    }
+//                }
             }
             midCmdCB.setModel(new DefaultComboBoxModel<>(filterMIDs.toArray(new String[0])));
         });
@@ -456,7 +457,7 @@ public class hostExe {
         pnlSendMID.add(blankLabel);
         // main mid container
 //        JButton btnSendMid = new JButton("Send");
-        btnSendMid = new JButton("Send");
+        btnSendMid = new JButton("send");
 //        btnSendMid.setAlignmentY(Component.TOP_ALIGNMENT);
 //        btnSendMid.setAlignmentY(Component.CENTER_ALIGNMENT);
 //        btnSendMid.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -476,7 +477,7 @@ public class hostExe {
 //        pnlSendMIDPd.setPreferredSize(new Dimension(-1, 5));
         pnlSendMID.add(pnlSendMIDPd);
 //        JButton btnSendSerializedMid = new JButton("Send");
-        btnSendSerializedMid = new JButton("Send");
+        btnSendSerializedMid = new JButton("send");
 //        btnSendSerializedMid.setAlignmentY(Component.TOP_ALIGNMENT);
 //        btnSendSerializedMid.setAlignmentY(Component.CENTER_ALIGNMENT);
 //        btnSendSerializedMid.setPreferredSize(new Dimension(pnlSendMID.getWidth(), 45));
@@ -656,6 +657,7 @@ public class hostExe {
         pnlSubContainer1b.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         // Timing JPanels
         JPanel pnlTmMain = timingPanel();
+//        pnlTmMain.setVisible(true);
         pnlSubContainer1b.add(pnlTmMain);
 //        pnlSubContainer1.add(pnlSubContainer1a);
         pnlSubContainer1.add(pnlSubContainer1b);
@@ -688,7 +690,7 @@ public class hostExe {
 //        pnlbtnConnect.setMaximumSize(pnlbtnConnect.getPreferredSize());
 //        pnlbtnConnect.setMinimumSize(pnlbtnConnect.getPreferredSize());
         // button
-        JButton btnConnect = new JButton("start connection");
+        btnConnect = new JButton("start connection");
         btnConnect.setAlignmentX(Component.LEFT_ALIGNMENT);
 //        btnConnect.setPreferredSize(new Dimension((int) (hostFrame.getWidth() * pnlWRatioD), 35));
         btnConnect.setPreferredSize(new Dimension((int) (hostFrame.getWidth() * pnlWRatioD), 30));
@@ -810,33 +812,50 @@ public class hostExe {
             try {
                 String inputIdAddress = finalIpString.getText();
                 int inputPortId = Integer.parseInt(finalPortString.getText());
-
                 int initDelay = (int) Float.parseFloat(finalInitTimeout.getText());
                 int checkPeriod = (int) Float.parseFloat(finalTimeoutDelay.getText());
-
-                hClient.startConnection(inputIdAddress, inputPortId, dialogBox, initDelay, checkPeriod);
-                //append & log the connection
-                appendDialog(dialogBox, "Connect to:\n" + inputIdAddress + ": " + inputPortId);
-                hostLogger.hostLog("host2Controller", "host connected to " + inputIdAddress + ": " + inputPortId, "info");
-
                 //
-                String startMid = "MID0001";
-                //append & log the input
-                appendDialog(dialogBox, "host message: \n" + startMid);
-                hostLogger.hostLog("host2Controller", "host message: " + startMid, "info");
+                if ("start connection".equals(btnConnect.getText())) {
 
-                //append & log the input
-                String integratorMsg = oPCS.integratorString(startMid);
-                appendDialog(dialogBox, "host message serialized: \n" + integratorMsg);
-                hostLogger.hostLog("host2Controller", "host message serialized: " + integratorMsg, "info");
+                    hClient.startConnection(inputIdAddress, inputPortId, dialogBox, initDelay, checkPeriod);
+                    //append & log the connection
+                    appendDialog(dialogBox, "Connect to:\n" + inputIdAddress + ": " + inputPortId);
+                    hostLogger.hostLog("host2Controller", "host connected to " + inputIdAddress + ": " + inputPortId, "info");
 
-                String serverResponse = hClient.sendMessage(integratorMsg);
-                appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
-                hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
+                    //
+                    String startMid = "MID0001";
+                    //append & log the input
+                    appendDialog(dialogBox, "host message: \n" + startMid);
+                    hostLogger.hostLog("host2Controller", "host message: " + startMid, "info");
 
-                Object serverResponseParsed = oPCP.parseMessage(serverResponse);
-                appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
-                hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
+                    //append & log the input
+                    String integratorMsg = oPCS.integratorString(startMid);
+                    appendDialog(dialogBox, "host message serialized: \n" + integratorMsg);
+                    hostLogger.hostLog("host2Controller", "host message serialized: " + integratorMsg, "info");
+
+                    //update button press
+                    btnConnect.setText("close connection");
+
+                    String serverResponse = hClient.sendMessage(integratorMsg);
+                    appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
+                    hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
+
+                    Object serverResponseParsed = oPCP.parseMessage(serverResponse);
+                    appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
+                    hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
+                } else {
+                    //if ("start connection".equals(btnConnect.getText())) {
+                    //append & log the connection clsoing
+                    appendDialog(dialogBox, "Closed connection to:\n" + inputIdAddress + ": " + inputPortId);
+                    hostLogger.hostLog("host2Controller", "host closed connected to " + inputIdAddress + ": " + inputPortId, "info");
+//                    System.out.println("checking errror");
+//                    System.out.println("appended dialog & hostlogger run");
+                    hClient.stopConnection();
+//                    System.out.println("ran the stopConnection");
+
+                    //update button press
+                    btnConnect.setText("start connection");
+                }
 
             } catch (Throwable o) {
                 ZonedDateTime zonedDateTime = ZonedDateTime.now();
@@ -898,14 +917,28 @@ public class hostExe {
                 appendDialog(dialogBox, "host message: \n" + serializedMidCommand);
                 hostLogger.hostLog("host2Controller", "host message: " + serializedMidCommand, "info");
 
-                String serverResponse = hClient.sendMessage(serializedMidCommand);
-                appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
-                hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
 
-                Object serverResponseParsed = oPCP.parseMessage(serverResponse);
-                appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
-                hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
+                // check last two characters
+                int msgLength = serializedMidCommand.length();
+                String lastTwoChars = serializedMidCommand.substring(Math.max(msgLength - 2, 0));
+                System.out.println("last two chars were? " + lastTwoChars);
+                if ("\0".equals(lastTwoChars)) {
+                    String serverResponse = hClient.sendMessage(serializedMidCommand);
+                    appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
+                    hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
 
+                    Object serverResponseParsed = oPCP.parseMessage(serverResponse);
+                    appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
+                    hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
+                } else {
+                    String serverResponse = hClient.sendMessage(serializedMidCommand + "\0");
+                    appendDialog(dialogBox, "controller message serialized: \n" + serverResponse);
+                    hostLogger.hostLog("host2Controller", "controller message serialized: " + serverResponse, "info");
+
+                    Object serverResponseParsed = oPCP.parseMessage(serverResponse);
+                    appendDialog(dialogBox, "controller message parsed: \n" + serverResponseParsed);
+                    hostLogger.hostLog("host2Controller", "controller message parsed: " + serverResponseParsed, "info");
+                }
             } catch (Throwable o) {
                 ZonedDateTime zonedDateTime = ZonedDateTime.now();
                 //
