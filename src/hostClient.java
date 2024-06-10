@@ -10,14 +10,13 @@ import java.util.concurrent.TimeUnit;
 public class hostClient {
     Socket clientSocket;
     DataOutputStream dataOut;
-//    BufferedReader readerIn;
-//    BufferedWriter buffWriter;
     //
     InputStreamReader inputStrRdr;
     ScheduledExecutorService scheduler;
 
     //
     void startConnection(String ip, int port, JTextArea dbox, int delay, int timePeriod) {
+        System.out.println("made it to start");
         try {
             clientSocket = new Socket(ip, port);
             clientSocket.setKeepAlive(true);
@@ -30,10 +29,12 @@ public class hostClient {
                 // if controller replies to midCommands.MID9999, use sendMessage.
                 String autoReplyMessage = sendMessage("00209999001000000000" + "\0");
                 //
-                hostExe.appendDialog(dbox, "keep alive: " + "00209999001000000000" + "\0");
+                //1. Instantiate host object
+                hostExe host = new hostExe();
+                host.appendDialog(dbox, "keep alive: " + "00209999001000000000" + "\0");
                 hostLogger.hostLog("startConnection", "host keep alive ", "info");
 
-                hostExe.appendDialog(dbox, "controller message serialized: \n" + autoReplyMessage);
+                host.appendDialog(dbox, "controller message serialized: \n" + autoReplyMessage);
                 hostLogger.hostLog("controller2Host", "controller message serialized: " + autoReplyMessage, "info");
 
                 // if controller does not reply to midCommands.MID9999, use sendNoReplyMessage.
@@ -42,6 +43,7 @@ public class hostClient {
             }, delay, timePeriod, TimeUnit.SECONDS);
 
         } catch (IOException e) {
+            hostLogger.hostLog("startConnection", e.getMessage(), "error");
             System.out.println("Something went wrong in startConnection Or keepAlive\n" + e.getMessage());
             e.printStackTrace();
             //        }

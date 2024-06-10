@@ -16,25 +16,28 @@ import java.util.*;
 
 public class hostExe {
     // initialized variables
-    public static JTextField ipString;
-    public static JTextField portString;
-    public static JTextField initTimeout;
-    public static JTextField timeoutDelay;
-    public static JTextField ctrlName;
-    public static JTextField midInputString;
-    public static JTextField serializedMidString;
-//    public static JComboBox<String> midCmdCB;
-    public static JTextArea dialogBox;
-    public static JButton btnConnect;
-    public static JButton btnSendMid;
-    public static JButton btnSendSerializedMid;
-    public static hostClient hClient = new hostClient();
-    public static openProtocolClientParserMIDClass oPCP = new openProtocolClientParserMIDClass();
-    public static openProtocolClientSerializerMIDClass oPCS = new openProtocolClientSerializerMIDClass();
+    public JTextField ipString;
+    public JTextField portString;
+    public JTextField initTimeout;
+    public JTextField timeoutDelay;
+    public JTextField ctrlName;
+    public JComboBox<String> midCmdCB;
+//    public JComboBox<ComboItem> midCmdCB;
+    public String midString;
+    public JTextField midStringField;
+    public JTextField midInputString;
+    public JTextField serializedMidString;
+    public JButton btnConnect;
+    public JButton btnSendMid;
+    public JButton btnSendSerializedMid;
+    public JTextArea dialogBox;
+//    public hostClient hClient = new hostClient();
+    public openProtocolClientParserMIDClass oPCP = new openProtocolClientParserMIDClass();
+    public openProtocolClientSerializerMIDClass oPCS = new openProtocolClientSerializerMIDClass();
     // Host Frame
-    public static JFrame hostFrame = new JFrame("Host");
+    public JFrame hostFrame = new JFrame("Host");
     //
-    public static String[] cmdList() {
+    public String[] cmdList() {
         return new String[]{"       ",
                 "MID0003", "MID0010", "MID0012", "MID0014", "MID0016", "MID0017", "MID0018", "MID0019",
                 "MID0020", "MID0030", "MID0032", "MID0034", "MID0036", "MID0037", "MID0038", "MID0039",
@@ -55,7 +58,7 @@ public class hostExe {
     //
 //    public static JPanel connectPanel(JFrame hostFrame, JTextField ipString, JTextField portString, JTextField ctrlName
 //            , double pnlWRatioH) {
-    public static JPanel connectPanel(double pnlWRatio1)  {
+    public JPanel connectPanel(double pnlWRatio1)  {
         // Connection JPanels
         JPanel pnlCnctMain = new JPanel();
         pnlCnctMain.setLayout(new BoxLayout(pnlCnctMain, BoxLayout.Y_AXIS));
@@ -173,7 +176,7 @@ public class hostExe {
     //
 //    public static JPanel timingPanel(JFrame hostFrame, JTextField ipString, JTextField portString, JTextField ctrlName
 //            , double pnlWRatioH) {
-    public static JPanel timingPanel() {
+    public JPanel timingPanel() {
         // Timing JPanels
         JPanel pnlTmMain = new JPanel();
         pnlTmMain.setLayout(new BoxLayout(pnlTmMain, BoxLayout.Y_AXIS));
@@ -293,7 +296,7 @@ public class hostExe {
 //            , double pnlWRatioH, String[] midCmdDd, JComboBox<String> midCmdCB) {
 //    public static JPanel midPanel(double pnlHRatio1, double pnlWRatio1, double pnlWRatio2
 //            , double pnlWRatio3, String[] midCmdDd, JComboBox<String> midCmdCB) {
-    public static JPanel midPanel(double pnlWRatio2, String[] midCmdDd, JComboBox<String> midCmdCB) {
+    public JPanel midPanel(double pnlWRatio2) {
         // MID section
         JPanel pnlMidContainer = new JPanel();
         pnlMidContainer.setLayout(new BoxLayout(pnlMidContainer, BoxLayout.Y_AXIS));
@@ -366,31 +369,83 @@ public class hostExe {
 //        UIManager.put("ComoboBox.border", BorderFactory.createEmptyBorder());
 //        UIManager.put("ComboBox.border", new Insets(0, 0, 0, 0));
 //        midCmdCB.setBorder(BorderFactory.createEmptyBorder());
+        String[] midCmdDd = cmdList();
+//        ComboItem[] items = new ComboItem[midCmdDd.length];
+//        for (int i = 0; i < midCmdDd.length; i++) {
+//            items[i] = new ComboItem(midCmdDd[i], midCmdDd[i]);
+//        }
+        midCmdCB = new JComboBox<>(midCmdDd);
+//        midCmdCB = new JComboBox<>(items);
+//        midCmdCB = new JComboBox<>();
         midCmdCB.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         midCmdCB.setBorder(null);
         midCmdCB.setAlignmentX(Component.LEFT_ALIGNMENT);
         midCmdCB.setToolTipText("'MID' Command");
-        midCmdCB.setEditable(true);
+        midCmdCB.setPreferredSize(new Dimension(125, 30));
+        midCmdCB.setMaximumSize(midCmdCB.getPreferredSize());
+        midCmdCB.setMinimumSize(midCmdCB.getPreferredSize());
+//        midStringField = new JTextField();
+////        midStringField.setToolTipText("'MID' Command");
+//        midStringField.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        midCmdCB.add(midStringField);
+//        midCmdCB.setEditable(true);
         midCmdCB.setBackground(Color.white);
-        midCmdCB.addActionListener(e -> {
-            midCmdCB.setVisible(true);
-            midCmdCB.setPopupVisible(true);
-            String midString = midCmdCB.getEditor().getItem().toString();
-            ArrayList<String> filterMIDs = new ArrayList<>();
-            for (String mid : midCmdDd) {
-                if (mid.toLowerCase().contains(midString.toLowerCase())) {
-                    filterMIDs.add(mid);
-                }
-//                else {
-//                    for (String m : midCmdDd) {
-//                        if (!filterMIDs.contains(m)) {
-//                            filterMIDs.add(m);
-//                        }
-//                    }
+//        final boolean[] initialDataLoaded = {false};
+//        midCmdCB.addActionListener(e -> {
+////            midCmdCB.setVisible(true);
+////            midCmdCB.setPopupVisible(true);
+//            String midDropDownString = midCmdCB.getEditor().getItem().toString();
+////            String midDropDownString = midCmdCB.getItemAt(0);
+////            if (midDropDownString.isEmpty() || midCmdCB.getItemCount() == 0) {
+////                midCmdCB.setModel(new DefaultComboBoxModel<>(midCmdDd));
+////            }
+//            // check if input field is filled
+////            if (midDropDownString.isEmpty() || midCmdCB.getItemCount() == 0) {
+//            if (midDropDownString.length() == 0 || midCmdCB.getItemCount() == 0) {
+//                midCmdCB.setModel(new DefaultComboBoxModel<>(midCmdDd));
+////                midCmdCB.setModel(new DefaultComboBoxModel<>(items));
+//            } else {
+////            if (midDropDownString.length() != 0 && midCmdCB.getItemCount() != 0) {
+//                ArrayList<String> filterMIDs = new ArrayList<>();
+//                for (String mid : midCmdDd) {
+//                    if (mid.toLowerCase().contains(midDropDownString.toLowerCase())) {
+//                        filterMIDs.add(mid);
+//                    }// else {
+//                    //    filterMIDs.add(mid);
+//                    //}
+//                    //                else {
+//                    //                    filterMIDs.add(Arrays.toString(midCmdDd));
+//                    //                }
+//                    //                else {
+//                    //                    for (String m : midCmdDd) {
+//                    //                        if (!filterMIDs.contains(m)) {
+//                    //                            filterMIDs.add(m);
+//                    //                        }
+//                    //                    }
+//                    //                }
 //                }
-            }
-            midCmdCB.setModel(new DefaultComboBoxModel<>(filterMIDs.toArray(new String[0])));
-        });
+//                midCmdCB.setModel(new DefaultComboBoxModel<>(filterMIDs.toArray(new String[0])));
+////                midCmdCB.setModel(new DefaultComboBoxModel<>(filterMIDs.toArray(new String[0])));
+////                initialDataLoaded[0] = false;
+//            }
+////            if (!initialDataLoaded[0]) {
+////                midCmdCB.setModel(new DefaultComboBoxModel<>(midCmdDd));
+////                initialDataLoaded[0] = true;
+////            }
+////            // adding in case manual entry
+////            midString = (String) midCmdCB.getSelectedItem();
+////            assert midString != null;
+////            if ((midString == null) || midString.length() > 0) {
+//////                midStringField = new JTextField();
+//////                midStringField.setAlignmentX(Component.LEFT_ALIGNMENT);
+//////                midCmdCB.add(midStringField);
+//////
+//////                midString = midStringField.getText();
+//////                midCmdCB.setModel(new DefaultComboBoxModel<>(midCmdDd));
+//////                midString = midCmdCB.getItemAt(0);
+////                midCmdCB.setModel(new DefaultComboBoxModel<>(midCmdDd));
+////            }
+//        });
         pnlMIDDtlCmdInVFlds.add(midCmdCB);
         JPanel pnlMIDDtlInFlds = new JPanel();
         pnlMIDDtlInFlds.setPreferredSize(new Dimension(110, 30));
@@ -437,7 +492,7 @@ public class hostExe {
         return pnlMidContainer;
     }
     //
-    public static JPanel sendPanel() {
+    public JPanel sendPanel() {
         // MID Send JPanels
         JPanel pnlSendMID = new JPanel();
         pnlSendMID.setLayout(new BoxLayout(pnlSendMID, BoxLayout.Y_AXIS));
@@ -494,7 +549,7 @@ public class hostExe {
         return pnlSendMID;
     }
     //
-    public static JPanel dialogPanel(double pnlHRatio1, double pnlWRatio1) {
+    public JPanel dialogPanel(double pnlHRatio1, double pnlWRatio1) {
         // Dialog section
         JPanel pnlDialogContainer = new JPanel();
 //        pnlDialogContainer.setMaximumSize(new Dimension(1300, 600));
@@ -537,7 +592,8 @@ public class hostExe {
 //    public static void createDialog(JTextField ipString, JTextField portString, JTextField initTimeout
 //            , JTextField timeoutDelay, JTextField ctrlName, JTextArea dialogBox, hostClient hClient
 //            , openProtocolClientParserMIDClass oPCP, openProtocolClientSerializerMIDClass oPCS) {
-    public static void createDialog() {
+    public void createDialog() {
+        hostClient hClient = new hostClient();
         // ScreenSize
         Dimension refScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int refFrameSizeW = (int) refScreenSize.getWidth();
@@ -732,13 +788,16 @@ public class hostExe {
         pnlSubContainer3a.setBorder(BorderFactory.createEmptyBorder(0, 0, 0
                 ,  (int) (hostFrame.getWidth() * pnlWRatioG)));
         // MID section
-        String[] midCmdDd = cmdList();
-        JComboBox<String> midCmdCB = new JComboBox<>(midCmdDd);
+//        String[] midCmdDd = cmdList();
+////        String[] originalMIDs = midCmdDd;
+//        JComboBox<String> midCmdCB = new JComboBox<>(midCmdDd);
+//        JComboBox<String> midCmdCB = new JComboBox<>();
+//        midCmdCB.setModel(new DefaultComboBoxModel<>(midCmdDd));
 //        JPanel pnlMidContainer = midPanel(pnlHRatioA, pnlWRatioE, pnlWRatioF, pnlWRatioG, pnlWRatioH
 //                , midCmdDd, midCmdCB);
 //        JPanel pnlMidContainer = midPanel(pnlHRatioA, pnlWRatioA, pnlWRatioB, pnlWRatioG
 //                , midCmdDd, midCmdCB);
-        JPanel pnlMidContainer = midPanel(pnlWRatioF, midCmdDd, midCmdCB);
+        JPanel pnlMidContainer = midPanel(pnlWRatioF);
         pnlSubContainer3a.add(pnlMidContainer);
         pnlSubContainer3.add(pnlSubContainer3a);
         //
@@ -748,7 +807,7 @@ public class hostExe {
         pnlSubContainer3b.setAlignmentX(Component.LEFT_ALIGNMENT);
 //        pnlSubContainer3b.setAlignmentX(Component.RIGHT_ALIGNMENT);
         pnlSubContainer3b.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        // Timing JPanels
+        // Send JPanels
         JPanel pnlSend = sendPanel();
         pnlSubContainer3b.add(pnlSend);
         pnlSubContainer3.add(pnlSubContainer3b);
@@ -814,6 +873,10 @@ public class hostExe {
                 int inputPortId = Integer.parseInt(finalPortString.getText());
                 int initDelay = (int) Float.parseFloat(finalInitTimeout.getText());
                 int checkPeriod = (int) Float.parseFloat(finalTimeoutDelay.getText());
+//                String inputIdAddress = ipString.getText();
+//                int inputPortId = Integer.parseInt(portString.getText());
+//                int initDelay = (int) Float.parseFloat(initTimeout.getText());
+//                int checkPeriod = (int) Float.parseFloat(timeoutDelay.getText());
                 //
                 if ("start connection".equals(btnConnect.getText())) {
 
@@ -880,7 +943,17 @@ public class hostExe {
 //                }
 //                String midCommand = midString.getText();
 //                String midCommand = midCmdCB.toString();
-                String midCommand = midCmdCB.getItemAt(0);
+//                String midCommand = midCmdCB.getItemAt(0);
+                String midCommand;
+                if (midCmdCB.getItemAt(0).isEmpty()) {
+                    midCommand = midString;
+//                    midCommand = midCmdCB.getEditor().getItem().toString();
+                } else {
+//                    midCommand = midCmdCB.getItemAt(0);
+                    midCommand = midCmdCB.getEditor().getItem().toString();
+                }
+//                String midCommand = midCmdCB.getItemAt(0);
+//                String midCommand = midCmdCB.getEditor().getItem().toString();
                 System.out.println("the combobox input was : " + midCommand);
                 String midValues = midInputString.getText();
                 //append & log the input
@@ -961,13 +1034,40 @@ public class hostExe {
         });
     }
     //
-    static void appendDialog(JTextArea tArea, String dialog){
+    void appendDialog(JTextArea tArea, String dialog){
         tArea.append(dialog);
         tArea.append("\n\n");
     }
+    //
     public static void main(String[] args) {
-        // 1.a. create dialog
-//        createDialog(ipString, portString, initTimeout, timeoutDelay, ctrlName, dialogBox, hClient, oPCP, oPCS);
-        createDialog();
+        //1. Instantiate host object
+//        createDialog();
+        hostExe host = new hostExe();
+//        // 1.a. create dialog
+////        createDialog(ipString, portString, initTimeout, timeoutDelay, ctrlName, dialogBox, hClient, oPCP, oPCS);
+        host.createDialog();
     }
+    //
+//    public static class ComboItem {
+//        private String value;
+//        private String label;
+//
+//        public ComboItem(String value, String label) {
+//            this.value = value;
+//            this.label = label;
+//        }
+//
+//        public String getValue() {
+//            return this.value;
+//        }
+//
+//        public String getLabel() {
+//            return this.label;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return label;
+//        }
+//    }
 }
